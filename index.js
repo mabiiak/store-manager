@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const customerRoutes = require('./routes/customerRoutes');
 
 const app = express();
 app.use(bodyParser.json());
@@ -11,13 +12,7 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-// requisito 2
-const model = require('./models/model');
-
-app.get('/products', async (req, res) => {
-  const products = await model.getAllProducts();
-  res.status(200).json(products);
-});
+app.use('/', customerRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
