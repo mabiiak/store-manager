@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-async function getAllProducts() {
+async function getAllProductsModel() {
   const [products] = await connection.query(
     'SELECT * FROM StoreManager.products;',
   );
@@ -8,4 +8,4 @@ async function getAllProducts() {
   return products;
 }
 
-module.exports = { getAllProducts };
+module.exports = { getAllProductsModel };
