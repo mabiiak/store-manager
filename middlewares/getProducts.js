@@ -1,4 +1,4 @@
-const { getAllProductsModel } = require('../models/model');
+const { getAllProductsModel, createNewProductModel } = require('../models/model');
 
 const getAllProductsMiddleware = async (req, res) => {
   const products = await getAllProductsModel();
@@ -18,7 +18,18 @@ const getProductByIdMiddleware = async (req, res) => {
   res.status(200).json(findProduct);
 };
 
+const newProductMiddleware = async (req, res) => {
+  const { name, quantity } = req.body;
+  const newProduct = {
+    name,
+    quantity,
+  };
+  createNewProductModel(name, quantity);
+  res.status(201).json(newProduct);
+};
+
 module.exports = {
   getAllProductsMiddleware,
   getProductByIdMiddleware,
+  newProductMiddleware,
 };

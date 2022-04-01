@@ -4,18 +4,19 @@ const app = express.Router();
 const { 
   getAllProductsMiddleware,
   getProductByIdMiddleware,
+  newProductMiddleware,
 } = require('../middlewares/getProducts');
+
+const {
+  validateQuantitySales,
+  validateProductIdSale,
+} = require('../services/validateSales');
 
 const {
   validateProductName,
   validateQuantityProduct,
   validateProductId,
 } = require('../services/validateProducts');
-
-const {
-  validateQuantitySales,
-  validateProductIdSale,
-} = require('../services/validateSales');
 
 const { getAllSalesMiddlewares, getOneSaleMiddlewares } = require('../middlewares/getSales');
 
@@ -25,7 +26,7 @@ app.get('/products/:id', getProductByIdMiddleware);
 app.get('/sales', getAllSalesMiddlewares);
 app.get('/sales/:id', getOneSaleMiddlewares);
 
-app.post('/products', validateProductName, validateQuantityProduct);
+app.post('/products', validateProductName, validateQuantityProduct, newProductMiddleware);
 app.post('/sales', validateQuantitySales, validateProductId);
 
 app.put('/products/:id', validateProductName, validateQuantityProduct);

@@ -4,7 +4,6 @@ async function getAllProductsModel() {
   const [products] = await connection.query(
     'SELECT * FROM StoreManager.products;',
   );
-  // console.log(products);
   return products;
 }
 
@@ -15,7 +14,6 @@ async function getAllSalesModel() {
     INNER JOIN sales AS s
     ON s.id = sp.sale_id;`,
   );
-  // console.log('model', sales);
   return sales;
 }
 
@@ -30,4 +28,12 @@ async function getSaleByIdModel(n) {
   return sales;
 }
 
-module.exports = { getAllProductsModel, getAllSalesModel, getSaleByIdModel };
+async function createNewProductModel(name, quantity) {
+  const [products] = await connection.execute(`
+    INSERT INTO products (name, quantity) VALUES
+    ("${name}", ${quantity})
+  `);
+  return products;
+}
+
+module.exports = { getAllProductsModel, getAllSalesModel, getSaleByIdModel, createNewProductModel };
