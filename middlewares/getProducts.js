@@ -24,6 +24,19 @@ const getAllSales = async (req, res) => {
   res.status(200).json(sales);
 };
 
+const getOneSale = async (req, res) => {
+  const { id } = req.params;
+  const date = await getAllSalesModel();
+
+  const findSale = date.find((sale) => sale.id === id);
+
+  if (!findSale) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+
+  res.status(200).json(findSale);
+};
+
 module.exports = {
   getAllProductsMiddleware,
   getProductByIdMiddleware,

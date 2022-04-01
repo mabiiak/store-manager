@@ -12,6 +12,6 @@ app.get('/products', getAllProductsMiddleware);
 
 app.get('/products/:id', getProductByIdMiddleware);
 
-app.get('./sales', getAllSales);
+app.get('/sales', getAllSales);
 
 module.exports = app;
