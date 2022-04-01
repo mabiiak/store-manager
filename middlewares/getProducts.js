@@ -1,11 +1,5 @@
 const { getAllProductsModel } = require('../models/model');
 
-const newProduct = async (req, res) => {
-  const { name } = req.body;
-
-  res.status(200).json({ message: name });
-};
-
 const getAllProductsMiddleware = async (req, res) => {
   const products = await getAllProductsModel();
   res.status(200).json(products);
@@ -27,5 +21,4 @@ const getProductByIdMiddleware = async (req, res) => {
 module.exports = {
   getAllProductsMiddleware,
   getProductByIdMiddleware,
-  newProduct,
 };
