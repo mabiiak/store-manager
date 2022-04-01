@@ -20,7 +20,13 @@ const getProductByIdMiddleware = async (req, res) => {
 
 const newProductMiddleware = async (req, res) => {
   const { name, quantity } = req.body;
+  const allProducts = await getAllProductsModel();
+  const filter = allProducts.filter((p) => p.name === name);
+
+  if (filter.length >= 1) return res.status(409).json({ message: 'Product already exists' });
+
   const newProduct = {
+    id: allProducts.length,
     name,
     quantity,
   };
