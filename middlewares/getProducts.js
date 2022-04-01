@@ -1,4 +1,4 @@
-const { getAllProductsModel, getAllSalesModel } = require('../models/model');
+const { getAllProductsModel, getAllSalesModel, getSaleByIdModel } = require('../models/model');
 
 const getAllProductsMiddleware = async (req, res) => {
   const products = await getAllProductsModel();
@@ -10,7 +10,6 @@ const getProductByIdMiddleware = async (req, res) => {
   const data = await getAllProductsModel();
 
   const findProduct = data.find((product) => product.id === Number(id));
-  console.log(findProduct);
 
   if (!findProduct) {
     return res.status(404).json({ message: 'Product not found' });
@@ -26,12 +25,10 @@ const getAllSales = async (req, res) => {
 
 const getOneSale = async (req, res) => {
   const { id } = req.params;
-  const date = await getAllSalesModel();
-
-  const findSale = date.find((sale) => sale.id === id);
-
-  if (!findSale) {
-    return res.status(404).json({ message: 'Product not found' });
+  const findSale = await getSaleByIdModel(id);
+  
+  if (!findSale || findSale.length === 0) {
+    return res.status(404).json({ message: 'Sale not found' });
   }
 
   res.status(200).json(findSale);
@@ -41,4 +38,5 @@ module.exports = {
   getAllProductsMiddleware,
   getProductByIdMiddleware,
   getAllSales,
+  getOneSale,
 };
