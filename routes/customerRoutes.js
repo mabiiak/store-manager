@@ -1,20 +1,19 @@
 const express = require('express');
 
 const app = express.Router();
-const {
+const { 
   getAllProductsMiddleware,
   getProductByIdMiddleware,
-  getAllSales,
-  getOneSale,
 } = require('../middlewares/getProducts');
 
-// Requisito 2 - retorna TODOS os produtos
+const { getAllSalesMiddlewares, getOneSaleMiddlewares } = require('../middlewares/getSales');
+
 app.get('/products', getAllProductsMiddleware);
 
 app.get('/products/:id', getProductByIdMiddleware);
 
-app.get('/sales', getAllSales);
+app.get('/sales', getAllSalesMiddlewares);
 
-app.get('/sales/:id', getOneSale);
+app.get('/sales/:id', getOneSaleMiddlewares);
 
 module.exports = app;
