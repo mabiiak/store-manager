@@ -1,4 +1,9 @@
-const { getAllProductsModel, createNewProductModel, editProductModel } = require('../models/model');
+const {
+  getAllProductsModel,
+  createNewProductModel,
+  editProductModel,
+  deleteProductModel,
+} = require('../models/model');
 
 const getAllProductsMiddleware = async (req, res) => {
   const products = await getAllProductsModel();
@@ -45,8 +50,16 @@ const editProduct = async (req, res) => {
     name,
     quantity,
   };
-  console.log(productEdit);
+
   res.status(200).json(productEdit);
+};
+
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+
+  deleteProductModel(id);
+
+  res.status(204).end();
 };
 
 module.exports = {
@@ -54,4 +67,5 @@ module.exports = {
   getProductByIdMiddleware,
   newProductMiddleware,
   editProduct,
+  deleteProduct,
 };

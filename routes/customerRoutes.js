@@ -7,6 +7,7 @@ const {
   getProductByIdMiddleware,
   newProductMiddleware,
   editProduct,
+  deleteProduct,
 } = require('../middlewares/getProducts');
 
 const {
@@ -38,5 +39,8 @@ app.put('/products/:id',
   checkProductNotExist,
   editProduct);
 app.put('/sales/:id', validateQuantitySales, validateProductIdSale);
+
+app.delete('/products/:id', deleteProduct);
+app.delete('/sales/:id');
 
 module.exports = app;
