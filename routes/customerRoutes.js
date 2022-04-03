@@ -40,7 +40,7 @@ app.put('/products/:id',
   editProduct);
 app.put('/sales/:id', validateQuantitySales, validateProductIdSale);
 
-app.delete('/products/:id', deleteProduct);
+app.delete('/products/:id', checkProductNotExist, deleteProduct);
 app.delete('/sales/:id');
 
 module.exports = app;

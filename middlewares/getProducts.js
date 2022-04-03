@@ -57,7 +57,7 @@ const editProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
 
-  deleteProductModel(id);
+  deleteProductModel(Number(id));
 
   res.status(204).end();
 };

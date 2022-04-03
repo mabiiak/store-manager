@@ -44,10 +44,19 @@ async function editProductModel(id, name, quantity) {
   return products;
 }
 
+async function deleteProductModel(id) {
+  const [products] = await connection.execute(`
+  DELETE FROM StoreManager.products WHERE id = ${id};
+`);
+
+return products;
+}
+
 module.exports = {
   getAllProductsModel,
   getAllSalesModel,
   getSaleByIdModel,
   createNewProductModel,
   editProductModel,
+  deleteProductModel,
 };
