@@ -1,3 +1,5 @@
+const { getAllProductsModel } = require('../models/model');
+
 const validateProductName = async (req, res, next) => {
   const { name } = req.body;
 
@@ -30,8 +32,22 @@ const validateProductId = async (req, res, next) => {
   next();
 };
 
+const checkProductNotExist = async (req, res, next) => {
+  const { id } = req.params;
+  const data = await getAllProductsModel();
+
+  const findProduct = data.find((product) => product.id === Number(id));
+
+  if (!findProduct) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+
+  next();
+};
+
 module.exports = {
   validateProductName,
   validateQuantityProduct,
   validateProductId,
+  checkProductNotExist,
 };

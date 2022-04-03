@@ -18,6 +18,7 @@ const {
   validateProductName,
   validateQuantityProduct,
   validateProductId,
+  checkProductNotExist,
 } = require('../services/validateProducts');
 
 const { getAllSalesMiddlewares, getOneSaleMiddlewares } = require('../middlewares/getSales');
@@ -31,7 +32,11 @@ app.get('/sales/:id', getOneSaleMiddlewares);
 app.post('/products', validateProductName, validateQuantityProduct, newProductMiddleware);
 app.post('/sales', validateQuantitySales, validateProductId);
 
-app.put('/products/:id', validateProductName, validateQuantityProduct, editProduct);
+app.put('/products/:id',
+  validateProductName,
+  validateQuantityProduct,
+  checkProductNotExist,
+  editProduct);
 app.put('/sales/:id', validateQuantitySales, validateProductIdSale);
 
 module.exports = app;

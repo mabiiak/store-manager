@@ -37,13 +37,6 @@ const newProductMiddleware = async (req, res) => {
 const editProduct = async (req, res) => {
   const { id } = req.params;
   const { name, quantity } = req.body;
-  
-  const data = await getAllProductsModel();
-  const findProduct = data.find((product) => product.id === Number(id));
-
-  if (!findProduct) {
-    return res.status(404).json({ message: 'Product not found' });
-  }
 
   editProductModel(Number(id), name, quantity);
 
