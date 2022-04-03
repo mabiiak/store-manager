@@ -34,8 +34,13 @@ const newProductMiddleware = async (req, res) => {
   res.status(201).json(newProduct);
 };
 
+const editProduct = async (req, res) => {
+  const { id } = req.body;
+};
+
 module.exports = {
   getAllProductsMiddleware,
   getProductByIdMiddleware,
   newProductMiddleware,
+  editProduct,
 };

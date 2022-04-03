@@ -36,4 +36,18 @@ async function createNewProductModel(name, quantity) {
   return products;
 }
 
-module.exports = { getAllProductsModel, getAllSalesModel, getSaleByIdModel, createNewProductModel };
+async function editProductModel(id, name, quantity) {
+  const [products] = await connection.execute(`
+    UPDATE products SET name = ${name}, quantity = ${quantity}
+    WHERE id = ${id};
+  `);
+  return products;
+}
+
+module.exports = {
+  getAllProductsModel,
+  getAllSalesModel,
+  getSaleByIdModel,
+  createNewProductModel,
+  editProductModel,
+};

@@ -1,10 +1,12 @@
 const express = require('express');
 
 const app = express.Router();
+
 const { 
   getAllProductsMiddleware,
   getProductByIdMiddleware,
   newProductMiddleware,
+  editProduct,
 } = require('../middlewares/getProducts');
 
 const {
@@ -29,7 +31,10 @@ app.get('/sales/:id', getOneSaleMiddlewares);
 app.post('/products', validateProductName, validateQuantityProduct, newProductMiddleware);
 app.post('/sales', validateQuantitySales, validateProductId);
 
-app.put('/products/:id', validateProductName, validateQuantityProduct);
+app.put('/products/:id', validateProductName, validateQuantityProduct, editProduct);
 app.put('/sales/:id', validateQuantitySales, validateProductIdSale);
+// requisição feita com name/quantity
+// filtrar name 
+// criar objeto com id
 
 module.exports = app;
