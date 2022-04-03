@@ -38,7 +38,7 @@ async function createNewProductModel(name, quantity) {
 
 async function editProductModel(id, name, quantity) {
   const [products] = await connection.execute(`
-    UPDATE products SET name = ${name}, quantity = ${quantity}
+    UPDATE products SET name = "${name}", quantity = "${quantity}"
     WHERE id = ${id};
   `);
   return products;

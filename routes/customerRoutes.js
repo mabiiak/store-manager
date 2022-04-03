@@ -33,8 +33,5 @@ app.post('/sales', validateQuantitySales, validateProductId);
 
 app.put('/products/:id', validateProductName, validateQuantityProduct, editProduct);
 app.put('/sales/:id', validateQuantitySales, validateProductIdSale);
-// requisição feita com name/quantity
-// filtrar name 
-// criar objeto com id
 
 module.exports = app;
