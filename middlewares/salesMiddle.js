@@ -18,23 +18,16 @@ const getOneSaleMiddlewares = async (req, res) => {
 
 const newSalesMiddleware = async (req, res) => {
   const allSale = await getAllSalesModel();
-  const [{ productId, quantity }] = req.body;
-
-  // console.log('req >', req.body);
 
   const newSale = {
     id: allSale.length,
-    itemSold: req.body,
+    itemsSold: req.body,
   };
  
   newSalesModel(newSale);
-
-  // console.log('middle', newSale);
-
+  console.log(newSale);
   res.status(201).json(newSale);
 };
-
-// deve ser possivel cadastrar uma ou mais vendas
 
 module.exports = {
   getAllSalesMiddlewares,
