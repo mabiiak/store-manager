@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const customerRoutes = require('./routes/customerRoutes');
+const routes = require('./routes/routes');
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,7 +12,7 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.use('/', customerRoutes);
+app.use('/', routes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);

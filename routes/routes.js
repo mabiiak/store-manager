@@ -8,7 +8,7 @@ const {
   newProductMiddleware,
   editProduct,
   deleteProduct,
-} = require('../middlewares/getProducts');
+} = require('../middlewares/productsMiddle');
 
 const {
   validateQuantitySales,
@@ -22,7 +22,7 @@ const {
   checkProductNotExist,
 } = require('../services/validateProducts');
 
-const { getAllSalesMiddlewares, getOneSaleMiddlewares } = require('../middlewares/getSales');
+const { getAllSalesMiddlewares, getOneSaleMiddlewares } = require('../middlewares/salesMiddle');
 
 app.get('/products', getAllProductsMiddleware);
 app.get('/products/:id', getProductByIdMiddleware);
