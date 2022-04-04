@@ -36,8 +36,9 @@ app.get('/sales/:id', getOneSaleMiddlewares);
 
 app.post('/products', validateProductName, validateQuantityProduct, newProductMiddleware);
 app.post('/sales',
-// validateQuantitySales, validateProductId,
-newSalesMiddleware);
+  validateQuantitySales,
+  validateProductIdSale,
+  newSalesMiddleware);
 
 app.put('/products/:id',
   validateProductName,

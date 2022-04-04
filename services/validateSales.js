@@ -1,6 +1,7 @@
 const validateQuantitySales = async (req, res, next) => {
   const [{ quantity }] = req.body;
 
+  console.log('tam', req.body.length);
   if (quantity === undefined) return res.status(400).json({ message: '"quantity" is required' });
 
   if (quantity < 1) {
@@ -12,6 +13,8 @@ const validateQuantitySales = async (req, res, next) => {
 
 const validateProductIdSale = async (req, res, next) => {
   const [{ productId }] = req.body;
+
+  // console.log('tam Id', req.body);
 
   if (!productId) return res.status(400).json({ message: '"productId" is required' });
 

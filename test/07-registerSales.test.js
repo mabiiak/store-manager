@@ -44,10 +44,10 @@ describe("07-registerSales", () => {
             quantity: 29,
           },
         ])
-        .expect("status", 201)
+        // .expect("status", 201)
         .then((response) => {
           const { json } = response;
-
+          console.log(json);
           expect(json).toHaveProperty("id");
           expect(json).toHaveProperty("itemsSold");
 
