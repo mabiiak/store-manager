@@ -11,9 +11,10 @@ const {
 } = require('../middlewares/productsMiddle');
 
 const {
-  validateQuantitySales,
-  validateProductIdSale,
-} = require('../services/validateSales');
+  getAllSalesMiddlewares,
+  getOneSaleMiddlewares,
+  newSalesMiddleware,
+} = require('../middlewares/salesMiddle');
 
 const {
   validateProductName,
@@ -22,7 +23,10 @@ const {
   checkProductNotExist,
 } = require('../services/validateProducts');
 
-const { getAllSalesMiddlewares, getOneSaleMiddlewares } = require('../middlewares/salesMiddle');
+const {
+  validateQuantitySales,
+  validateProductIdSale,
+} = require('../services/validateSales');
 
 app.get('/products', getAllProductsMiddleware);
 app.get('/products/:id', getProductByIdMiddleware);
@@ -31,7 +35,9 @@ app.get('/sales', getAllSalesMiddlewares);
 app.get('/sales/:id', getOneSaleMiddlewares);
 
 app.post('/products', validateProductName, validateQuantityProduct, newProductMiddleware);
-app.post('/sales', validateQuantitySales, validateProductId);
+app.post('/sales',
+// validateQuantitySales, validateProductId,
+newSalesMiddleware);
 
 app.put('/products/:id',
   validateProductName,

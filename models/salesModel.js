@@ -21,9 +21,24 @@ async function getSaleByIdModel(n) {
   return sales;
 }
 
-// vendas devem ser atualizadas em sales e sales_products
+async function newSalesModel(newSales) {
+  await connection.execute('INSERT INTO sales (date) VALUES (NOW());');
+
+  const { id, itemSold } = newSales;
+
+  const query = `INSERT INTO sales_products (sale_id, product_id, quantity)
+  VALUES (?, ?, ?)`;
+
+  Promise.all(itemSold.map(async (item) => {
+    console.log(item);
+    const [salesProduct] = await connection.execute(query, [id, item.productId, item.quantity]);
+
+    return salesProduct;
+  }));
+}
 
 module.exports = {
   getAllSalesModel,
   getSaleByIdModel,
+  newSalesModel,
 };
