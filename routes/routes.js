@@ -19,7 +19,6 @@ const {
 const {
   validateProductName,
   validateQuantityProduct,
-  validateProductId,
   checkProductNotExist,
 } = require('../services/validateProducts');
 

@@ -25,7 +25,6 @@ const newSalesMiddleware = async (req, res) => {
   };
  
   newSalesModel(newSale);
-  console.log(newSale);
   res.status(201).json(newSale);
 };
 
