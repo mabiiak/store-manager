@@ -3,7 +3,7 @@ const {
   createNewProductModel,
   editProductModel,
   deleteProductModel,
-} = require('../models/model');
+} = require('../models/productsModel');
 
 const getAllProductsMiddleware = async (req, res) => {
   const products = await getAllProductsModel();

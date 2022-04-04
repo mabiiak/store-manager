@@ -1,4 +1,4 @@
-const { getAllSalesModel, getSaleByIdModel } = require('../models/model');
+const { getAllSalesModel, getSaleByIdModel } = require('../models/salesModel');
 
 const getAllSalesMiddlewares = async (req, res) => {
   const sales = await getAllSalesModel();
@@ -15,5 +15,7 @@ const getOneSaleMiddlewares = async (req, res) => {
 
   res.status(200).json(findSale);
 };
+
+// deve ser possivel cadastrar uma ou mais vendas
 
 module.exports = { getAllSalesMiddlewares, getOneSaleMiddlewares };
