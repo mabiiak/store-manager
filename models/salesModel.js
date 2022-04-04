@@ -24,13 +24,12 @@ async function getSaleByIdModel(n) {
 async function newSalesModel(newSales) {
   await connection.execute('INSERT INTO sales (date) VALUES (NOW());');
 
-  const { id, itemSold } = newSales;
+  const { id, itemsSold } = newSales;
 
   const query = `INSERT INTO sales_products (sale_id, product_id, quantity)
   VALUES (?, ?, ?)`;
 
-  Promise.all(itemSold.map(async (item) => {
-    console.log(item);
+  Promise.all(itemsSold.map(async (item) => {
     const [salesProduct] = await connection.execute(query, [id, item.productId, item.quantity]);
 
     return salesProduct;
