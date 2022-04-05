@@ -52,12 +52,9 @@ async function newSalesModel(newSales) {
 // }
 
 async function deleteSalesModel(saleId) {
-  const query = `
-    DELETE from sales_products
-    WHERE sale_id = ?
-  `;
-  console.log(saleId);
-  const [sales] = await connection.execute(query, saleId);
+  const query = 'DELETE from sales_products WHERE sale_id = ?';
+
+  const [sales] = await connection.execute(query, [saleId]);
   return sales;
 }
 

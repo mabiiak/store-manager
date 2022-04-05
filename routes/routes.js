@@ -15,6 +15,7 @@ const {
   getOneSaleMiddlewares,
   newSalesMiddleware,
   editSale,
+  deleteSale,
 } = require('../middlewares/salesMiddle');
 
 const {
@@ -51,6 +52,6 @@ app.put('/sales/:id',
   editSale);
 
 app.delete('/products/:id', checkProductNotExist, deleteProduct);
-app.delete('/sales/:id');
+app.delete('/sales/:id', deleteSale);
 
 module.exports = app;

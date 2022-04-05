@@ -57,9 +57,21 @@ const editSale = async (req, res) => {
   res.status(200).json(itemEdit);
 };
 
+const deleteSale = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await deleteSalesModel(Number(id));
+    res.status(204).end();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getAllSalesMiddlewares,
   getOneSaleMiddlewares,
   newSalesMiddleware,
   editSale,
+  deleteSale,
 };
