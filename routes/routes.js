@@ -27,6 +27,7 @@ const {
 const {
   validateQuantitySales,
   validateProductIdSale,
+  checkSaleExist,
 } = require('../services/validateSales');
 
 app.get('/products', getAllProductsMiddleware);
@@ -52,6 +53,6 @@ app.put('/sales/:id',
   editSale);
 
 app.delete('/products/:id', checkProductNotExist, deleteProduct);
-app.delete('/sales/:id', deleteSale);
+app.delete('/sales/:id', checkSaleExist, deleteSale);
 
 module.exports = app;

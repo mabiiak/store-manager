@@ -58,10 +58,21 @@ async function deleteSalesModel(saleId) {
   return sales;
 }
 
+async function findSales(id) {
+  const query = 'SELECT * FROM sales_products WHERE sale_id = ?';
+
+  const [sales] = await connection.execute(query, [id]);
+  // console.log(sales);
+  if (sales.length >= 1) return true;
+  
+  return false;
+}
+
 module.exports = {
   getAllSalesModel,
   getSaleByIdModel,
   newSalesModel,
   // editSalesModel,
   deleteSalesModel,
+  findSales,
 };
