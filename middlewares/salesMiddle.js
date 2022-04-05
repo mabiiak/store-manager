@@ -37,7 +37,6 @@ const editSale = async (req, res) => {
   const { id } = req.params;
   const [{ productId, quantity }] = req.body;
 
-  // console.log('req', req.body);
   const itemEdit = {
     saleId: Number(id),
     itemUpdated: [{
@@ -45,14 +44,16 @@ const editSale = async (req, res) => {
       quantity,
     }],
   };
-  const edit = {
+
+  const reAdd = {
     id: Number(id),
     itemsSold: req.body,
   };
 
-  console.log(edit);
+  console.log(itemEdit);
+
   deleteSalesModel(Number(id));
-  // newSalesModel(edit);
+  newSalesModel(reAdd);
 
   res.status(200).json(itemEdit);
 };

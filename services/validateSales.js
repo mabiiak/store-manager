@@ -25,7 +25,7 @@ const checkSaleExist = async (req, res, next) => {
   
   const findId = await findSales(id);
 
-  if (findId === false) return res.status(404).json({ message: 'Sale not found' })
+  if (findId === false) return res.status(404).json({ message: 'Sale not found' });
   next();
 };
 
