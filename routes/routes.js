@@ -14,6 +14,7 @@ const {
   getAllSalesMiddlewares,
   getOneSaleMiddlewares,
   newSalesMiddleware,
+  editSale,
 } = require('../middlewares/salesMiddle');
 
 const {
@@ -44,7 +45,10 @@ app.put('/products/:id',
   validateQuantityProduct,
   checkProductNotExist,
   editProduct);
-app.put('/sales/:id', validateQuantitySales, validateProductIdSale);
+app.put('/sales/:id',
+  validateQuantitySales,
+  validateProductIdSale,
+  editSale);
 
 app.delete('/products/:id', checkProductNotExist, deleteProduct);
 app.delete('/sales/:id');

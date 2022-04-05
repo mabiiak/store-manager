@@ -28,8 +28,28 @@ const newSalesMiddleware = async (req, res) => {
   res.status(201).json(newSale);
 };
 
+const editSale = async (req, res) => {
+  const { id } = req.params;
+  const [{ productId, quantity }] = req.body;
+
+  const itemUpdate = [{
+    productId,
+    quantity,
+  }];
+
+  const itemEdit = {
+    saleId: id,
+    itemUpdate,
+  };
+
+  // func model
+
+  res.status(200).json(itemEdit);
+};
+
 module.exports = {
   getAllSalesMiddlewares,
   getOneSaleMiddlewares,
   newSalesMiddleware,
+  editSale,
 };
