@@ -36,8 +36,35 @@ async function newSalesModel(newSales) {
   }));
 }
 
+// async function editSalesModel(itemEdit) {
+//   const { saleId, itemUpdated } = itemEdit;
+//   const [{ productId, quantity }] = itemUpdated;
+  
+//   console.log('model >', itemEdit);
+
+//   const query = `UPDATE sale_products
+//   SET product_id = ?, quantity = ?
+//   WHERE sale_id = ?`;
+
+//   const [sales] = await connection.execute(query, [productId, quantity, saleId]);
+
+//   return sales;
+// }
+
+async function deleteSalesModel(saleId) {
+  const query = `
+    DELETE from sales_products
+    WHERE sale_id = ?
+  `;
+  console.log(saleId);
+  const [sales] = await connection.execute(query, saleId);
+  return sales;
+}
+
 module.exports = {
   getAllSalesModel,
   getSaleByIdModel,
   newSalesModel,
+  // editSalesModel,
+  deleteSalesModel,
 };
