@@ -2,7 +2,11 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../models/connection');
 
-const { getAllProductsModel, createNewProductModel, deleteProductModel } = require('../../../models/productsModel');
+const {
+  getAllProductsModel,
+  createNewProductModel,
+  deleteProductModel,
+} = require('../../../models/productsModel');
 const mocha = require('../mocha');
 
 describe('Model Products', () => {
