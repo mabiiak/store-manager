@@ -1,9 +1,8 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const { execute } = require('../../../models/connection');
 const connection = require('../../../models/connection');
 
-const { getAllProductsModel, createNewProductModel } = require('../../../models/productsModel');
+const { getAllProductsModel, createNewProductModel, deleteProductModel } = require('../../../models/productsModel');
 
 describe('Model Products', () => {
   describe('getAllProducts', () => {
@@ -16,6 +15,10 @@ describe('Model Products', () => {
 
       before(() => {
         sinon.stub(connection, 'execute').resolves(produtosDuble)
+      });
+
+      after(() => {
+        connection.execute.restore();
       })
 
       it('retorna todos os dados', async () => {
@@ -24,4 +27,25 @@ describe('Model Products', () => {
       })
     });
   });
+
+  describe('createNewProduct', () => {
+    describe('adiciona novos dados', () => {
+      const produtosDuble = [
+        { name: 'Óculos do Homem de Ferro', quantity: 2 }, 
+      ];
+
+      before(() => {
+        sinon.stub(connection, 'execute').resolves(produtosDuble)
+      });
+
+      after(() => {
+        connection.execute.restore();
+      })
+
+      it('retorna todos os dados', async () => {
+        const allProducts = await createNewProductModel(produtosDuble);
+        expect(allProducts.quantity).to.be.equals(2);
+      })
+    });
+  });  
 })
