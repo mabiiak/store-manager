@@ -3,12 +3,12 @@ const express = require('express');
 const app = express.Router();
 
 const { 
-  getAllProductsMiddleware,
-  getProductByIdMiddleware,
-  newProductMiddleware,
-  editProduct,
-  deleteProduct,
-} = require('../middlewares/productsMiddle');
+  getAllProductsController,
+  getProductByIdController,
+  newProductController,
+  editProductController,
+  deleteProductController,
+} = require('../controllers/productsController');
 
 const {
   getAllSalesMiddlewares,
@@ -30,13 +30,13 @@ const {
   checkSaleExist,
 } = require('../services/validateSales');
 
-app.get('/products', getAllProductsMiddleware);
-app.get('/products/:id', getProductByIdMiddleware);
+app.get('/products', getAllProductsController);
+app.get('/products/:id', getProductByIdController);
 
 app.get('/sales', getAllSalesMiddlewares);
 app.get('/sales/:id', getOneSaleMiddlewares);
 
-app.post('/products', validateProductName, validateQuantityProduct, newProductMiddleware);
+app.post('/products', validateProductName, validateQuantityProduct, newProductController);
 app.post('/sales',
   validateQuantitySales,
   validateProductIdSale,
@@ -46,13 +46,13 @@ app.put('/products/:id',
   validateProductName,
   validateQuantityProduct,
   checkProductNotExist,
-  editProduct);
+  editProductController);
 app.put('/sales/:id',
   validateQuantitySales,
   validateProductIdSale,
   editSale);
 
-app.delete('/products/:id', checkProductNotExist, deleteProduct);
+app.delete('/products/:id', checkProductNotExist, deleteProductController);
 app.delete('/sales/:id', checkSaleExist, deleteSale);
 
 module.exports = app;
