@@ -6,5 +6,6 @@ module.exports = {
   ],
 
   oneProduct: [{ name: 'Óculos do Homem de Ferro', quantity: 2 }],
-  id: { id: 1, 'name': 'Martelo de Thor', 'quantity': 10 },
+  id: { id: 1, name: 'Martelo de Thor', quantity: 10 },
+  newProduct: { id: 3, name: 'Escudo do Capitão Triste', quantity: 1 }, 
 }

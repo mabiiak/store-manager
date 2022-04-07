@@ -5,26 +5,25 @@ const connection = require('../../../models/connection');
 const {
   getAllProductsModel,
   createNewProductModel,
+  editProductModel,
   deleteProductModel,
 } = require('../../../models/productsModel');
 const mocha = require('../mocha');
 
 describe('Model Products', () => {
   describe('getAllProducts', () => {
-    describe('quando a tabela `products` tiver dados', () => {
-      before(() => {
-        sinon.stub(connection, 'execute').resolves(mocha.produtosDuble)
-      });
-
-      after(() => {
-        connection.execute.restore();
-      });
-
-      it('retorna todos os dados', async () => {
-        const allProducts = await getAllProductsModel();
-        expect(allProducts).to.be.deep.eq(mocha.produtosDuble);
-      })
+    before(() => {
+      sinon.stub(connection, 'execute').resolves(mocha.produtosDuble)
     });
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+    it('retorna todos os dados', async () => {
+      const allProducts = await getAllProductsModel();
+      expect(allProducts).to.be.deep.eq(mocha.produtosDuble);
+    })
   });
 
   describe('createNewProduct', () => {
@@ -42,5 +41,29 @@ describe('Model Products', () => {
         expect(allProducts.quantity).to.be.equals(2);
       })
     });
-  });  
+  });
+
+  describe('editProductModel', async () => {
+    before(() => {
+      sinon.stub(connection, 'execute').resolves(mocha.newProduct)
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+    const testFunc = await editProductModel(mocha.newProduct);
+    expect(testFunc.name).to.be.deep.equals(mocha.newProduct.name)
+  });
+
+  describe('deleteProductModel', async () => {
+    before(() => {
+      sinon.stub(connection, 'execute').resolves(mocha.id)
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+    const testFunc = await deleteProductModel(mocha.newProduct);
+    expect(testFunc.name).to.be.deep.equals(mocha.newProduct.name)
+  });
 })

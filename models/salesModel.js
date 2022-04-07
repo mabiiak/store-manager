@@ -57,7 +57,6 @@ module.exports = {
   getAllSalesModel,
   getSaleByIdModel,
   newSalesModel,
-  // editSalesModel,
   deleteSalesModel,
   findSales,
 };
