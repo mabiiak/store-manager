@@ -11,12 +11,12 @@ const {
 } = require('../controllers/productsController');
 
 const {
-  getAllSalesMiddlewares,
-  getOneSaleMiddlewares,
-  newSalesMiddleware,
-  editSale,
-  deleteSale,
-} = require('../middlewares/salesMiddle');
+  getAllSalesController,
+  getOneSaleController,
+  newSalesController,
+  editSaleController,
+  deleteSaleController,
+} = require('../controllers/salesController');
 
 const {
   validateProductName,
@@ -33,14 +33,14 @@ const {
 app.get('/products', getAllProductsController);
 app.get('/products/:id', getProductByIdController);
 
-app.get('/sales', getAllSalesMiddlewares);
-app.get('/sales/:id', getOneSaleMiddlewares);
+app.get('/sales', getAllSalesController);
+app.get('/sales/:id', getOneSaleController);
 
 app.post('/products', validateProductName, validateQuantityProduct, newProductController);
 app.post('/sales',
   validateQuantitySales,
   validateProductIdSale,
-  newSalesMiddleware);
+  newSalesController);
 
 app.put('/products/:id',
   validateProductName,
@@ -50,9 +50,9 @@ app.put('/products/:id',
 app.put('/sales/:id',
   validateQuantitySales,
   validateProductIdSale,
-  editSale);
+  editSaleController);
 
 app.delete('/products/:id', checkProductNotExist, deleteProductController);
-app.delete('/sales/:id', checkSaleExist, deleteSale);
+app.delete('/sales/:id', checkSaleExist, deleteSaleController);
 
 module.exports = app;
