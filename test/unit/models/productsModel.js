@@ -20,7 +20,7 @@ describe('Model Products', () => {
       connection.execute.restore();
     });
 
-    it('retorna todos os dados', async () => {
+    it('retorna todos os produtos', async () => {
       const allProducts = await getAllProductsModel();
       expect(allProducts).to.be.deep.eq(mocha.produtosDuble);
     })
@@ -57,13 +57,15 @@ describe('Model Products', () => {
 
   describe('deleteProductModel', async () => {
     before(() => {
-      sinon.stub(connection, 'execute').resolves(mocha.id)
+      sinon.stub(connection, 'execute').resolves(mocha.productsolo)
     });
 
     after(() => {
       connection.execute.restore();
     });
     const testFunc = await deleteProductModel(mocha.newProduct);
-    expect(testFunc.name).to.be.deep.equals(mocha.newProduct.name)
+    const allProducts = await getAllProductsModel();
+    expect(testFunc).to.be.eql(mocha.newProduct)
+    expect(allProducts).to.be.not.include(mocha.productsolo)
   });
 })

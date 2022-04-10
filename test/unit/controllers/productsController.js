@@ -27,14 +27,28 @@ describe('Products Controllers', () => {
   })
 
   describe('getProductByIdController', () => {
+    const req = {};
+    const res = {};
+    req.params = {
+      "id": 1,
+    }
+    const reqNull = {
+      params: { id: 0 }
+    }
+
     before(() => {
-      sinon.stub(products , 'getProductByIdController')
-        .resolves({ id: 1, 'name': 'Martelo de Thor', 'quantity': 10 });
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
     });
 
     it('deve retornar o produto com o id buscado', async () => {
-      const testFunc = await products.getProductByIdController(1);
-      expect(testFunc).to.be.deep.equal(mocha.id);
+      await products.getProductByIdController(req, res);
+      expect(res.status.calledWith(200)).to.be.true;
+    });
+
+    it('Não deve retornar nenhum produto', async () => {
+      await products.getProductByIdController(reqNull, res);
+      expect(res.status.calledWith(404)).to.be.true;
     });
   });
 
@@ -51,5 +65,22 @@ describe('Products Controllers', () => {
       expect(testFunc.id).to.be.deep.equal(5);
     });
 
+  });
+
+  describe('editProductController', () => {
+    const req = {};
+    const res = {};
+    const duble = {id: 5, name: 'Machado do Thor', 'quantity': 2}
+
+    before(() => {
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+      sinon.stub(products , 'editProductController').resolves(duble);
+    });
+
+    it('deve editar o produto', async () => {
+      const funcTest = await products.editProductController(req, res);
+      expect(funcTest).to.be.deep.equal(duble);
+    });
   });
 });
