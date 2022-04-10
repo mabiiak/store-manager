@@ -27,11 +27,10 @@ describe('Products Controllers', () => {
   })
 
   describe('getProductByIdController', () => {
-    const req = {};
+    const req = {
+      params: { "id": 1 }
+    };
     const res = {};
-    req.params = {
-      "id": 1,
-    }
     const reqNull = {
       params: { id: 0 }
     }
@@ -53,18 +52,21 @@ describe('Products Controllers', () => {
   });
 
   describe('newProductController', () => {
-    const req = {id: 5, name: 'Machado do Thor', 'quantity': 2};
+    const req = {
+      name: 'Machado do Thor',
+      quantity: 2
+    };
     const res = {};
 
     before(() => {
-      sinon.stub(products , 'newProductController').resolves(req);
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
     });
 
     it('deve adicionar o produto novo', async () => {
-      const testFunc = await products.newProductController(req, res);
-      expect(testFunc.id).to.be.deep.equal(5);
+      await products.newProductController(req, res);
+      expect(res.status.calledWith(200)).to.be.true;
     });
-
   });
 
   describe('editProductController', () => {
