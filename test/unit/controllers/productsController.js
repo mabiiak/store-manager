@@ -53,19 +53,27 @@ describe('Products Controllers', () => {
 
   describe('newProductController', () => {
     const req = {
-      name: 'Machado do Thor',
-      quantity: 2
+      body : {
+        name: 'Machado do Thor',
+        quantity: 2
+      }
     };
     const res = {};
 
     before(() => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
+      sinon.stub(products, 'newProductController').resolves(mocha.newSale)
     });
 
+    // it('deve adicionar o produto novo', async () => {
+    //   await products.newProductController(req, res);
+    //   expect(res.status.called).to.be.true;
+    // });
+
     it('deve adicionar o produto novo', async () => {
-      await products.newProductController(req, res);
-      expect(res.status.calledWith(200)).to.be.true;
+      const testFunc = await products.newProductController(req, res);
+      expect(testFunc).to.be.deep.eq(mocha.newSale);
     });
   });
 

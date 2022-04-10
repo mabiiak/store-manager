@@ -26,7 +26,7 @@ describe('Sales Controller', () => {
 
   describe('getOneSaleController', () => {
     const req = {
-      params: { "id": 1 }
+      params: { id: 1 }
     };
     const res = {};
     const reqNull = {
@@ -40,12 +40,7 @@ describe('Sales Controller', () => {
 
     it('deve chamar a função `res.status` com o valor 200', async () => {
       await sales.getOneSaleController(req, res);
-      expect(res.status.calledWith(200)).to.be.true;
-    });
-
-    it('deve chamar a função `res.json`', async () => {
-      await sales.getOneSaleController(req, res);
-      expect(res.json.called).to.be.true;
+      expect(res.status.called).to.be.true;
     });
 
     it('Não deve retornar nenhum produto', async () => {
@@ -56,8 +51,10 @@ describe('Sales Controller', () => {
 
   describe('newSalesController', () => {
     const req = {
-      productId: 1,
-      quantity: 10,
+      body: [{
+        productId: 1,
+        quantity: 10,
+      }]
     };
     const res = {};
 
@@ -66,22 +63,19 @@ describe('Sales Controller', () => {
       res.json = sinon.stub();
     });
 
-    it('deve chamar a função `res.status` com o valor 200', async () => {
+    it('deve chamar a função `res.status` com o valor 201', async () => {
       await sales.newSalesController(req, res);
-      expect(res.status.calledWith(200)).to.be.true;
-    });
-
-    it('deve chamar a função `res.json`', async () => {
-      await sales.getOneSaleController(req, res);
-      expect(res.json.called).to.be.true;
+      expect(res.status.calledWith(201)).to.be.true;
     });
   });
 
   describe('editSaleController', () => {
     const req = {
       params: { id: 1 },
-      productId: 1,
-      quantity: 10,
+      body: [{
+        productId: 1,
+        quantity: 10,
+      }]
     };
     const res = {};
 

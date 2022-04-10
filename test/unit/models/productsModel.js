@@ -8,6 +8,7 @@ const {
   editProductModel,
   deleteProductModel,
 } = require('../../../models/productsModel');
+const model = require('../../../models/productsModel');
 const mocha = require('../mocha');
 
 describe('Model Products', () => {
@@ -22,7 +23,7 @@ describe('Model Products', () => {
 
     it('retorna todos os produtos', async () => {
       const allProducts = await getAllProductsModel();
-      expect(allProducts).to.be.deep.eq(mocha.produtosDuble);
+      expect(allProducts).to.be.deep.equal(mocha.produtosDuble);
     })
   });
 

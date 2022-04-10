@@ -50,8 +50,6 @@ const editSaleController = async (req, res) => {
     itemsSold: req.body,
   };
 
-  console.log(itemEdit);
-
   deleteSalesModel(Number(id));
   newSalesModel(reAdd);
 
