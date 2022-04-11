@@ -23,7 +23,6 @@ async function getSaleByIdModel(n) {
 
 async function newSalesModel(newSales) {
   await connection.execute('INSERT INTO sales (date) VALUES (NOW());');
-
   const { id, itemsSold } = newSales;
 
   const query = `INSERT INTO sales_products (sale_id, product_id, quantity)
