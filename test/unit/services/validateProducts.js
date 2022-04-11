@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const validate = require('../../../services/validateProducts');
 
-describe('Validates Products', () => {
+describe.only('Validates Products', () => {
   describe('validateProductName', async () => {
     const req = {
       body: { name: 'Bob'}
@@ -15,7 +15,7 @@ describe('Validates Products', () => {
       res.json = sinon.stub();
     });
 
-    it('deve chamar a função `res.status` com o status 422', async () => {
+    it('Deve retornar status(422) ao passar nome inválido', async () => {
       await validate.validateProductName(req, res);
       expect(res.status.calledWith(422)).to.be.true;
     });
@@ -32,7 +32,7 @@ describe('Validates Products', () => {
       res.json = sinon.stub();
     });
 
-    it('deve chamar a função `res.status` com o status 422', async () => {
+    it('Deve retornar status(422) ao passar quantity inválido', async () => {
       await validate.validateQuantityProduct(req, res);
       expect(res.status.calledWith(422)).to.be.true;
     });
@@ -49,7 +49,7 @@ describe('Validates Products', () => {
       res.json = sinon.stub();
     });
 
-    it('deve chamar a função `res.status` com o status 404', async () => {
+    it('Deve retornar status(422) ao passar id de um produto inexistente', async () => {
       await validate.checkProductNotExist(req, res);
       expect(res.status.calledWith(404)).to.be.true;
     });

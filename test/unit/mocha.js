@@ -1,6 +1,4 @@
 module.exports = {
-
-
   saleSolo: [{ date:'2021/11/12', productId:2, quantity:5 }],
 
   newSale: {

@@ -1,8 +1,9 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
+const products = require('../dubles/products');
+const mocha = require('../mocha');
 const controller = require('../../../controllers/productsController');
-const duble = require('../mocha');
 const model = require('../../../models/productsModel');
 const { assert } = require('joi');
 
@@ -14,7 +15,7 @@ describe('Products Controllers', () => {
     before(() => {
       res.status = sinon.stub().returns(200);
       res.json = sinon.stub();
-      sinon.stub(model, 'getAllProductsModel').resolves(duble.produtosDuble);
+      sinon.stub(model, 'getAllProductsModel').resolves(products.allProducts);
     });
 
     after(() => {
