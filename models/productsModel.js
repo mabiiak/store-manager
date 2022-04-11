@@ -8,17 +8,15 @@ async function getAllProductsModel() {
   return products;
 }
 
-async function getProductByIdModel(n) {
-  const [product] = await connection.execute(
-    `SELECT * FROM StoreManager.products WHERE id = ${n};`,
-  );
+async function getProductByIdModel(id) {
+  const query = 'SELECT * FROM StoreManager.products WHERE id = ?;';
+  const [product] = await connection.execute(query, [id]);
   return product;
 }
 
-async function getProductByNameModel(n) {
-  const [product] = await connection.execute(
-    `SELECT * FROM StoreManager.products WHERE name = ${n};`,
-  );
+async function getProductByNameModel(name) {
+  const query = 'SELECT * FROM StoreManager.products WHERE name = ?;';
+  const [product] = await connection.execute(query, [name]);
   return product;
 }
 

@@ -14,9 +14,9 @@ const getAllProductsController = async (req, res) => {
 
 const getProductByIdController = async (req, res) => {
   const { id } = req.params;
-  const data = await getProductByIdModel(Number(id));
+  const [data] = await getProductByIdModel(Number(id));
 
-  if (data.length === 0) {
+  if (!data) {
     return res.status(404).json({ message: 'Product not found' });
   }
 
@@ -26,10 +26,10 @@ const getProductByIdController = async (req, res) => {
 const newProductController = async (req, res) => {
   const { name, quantity } = req.body;
   const allProducts = await getAllProductsModel();
-
-  const filter = getProductByNameModel(name);
-
-  if (filter.length === 0) return res.status(409).json({ message: 'Product already exists' });
+  console.log(name);
+  const filter = await getProductByNameModel(name);
+  console.log(filter);
+  if (filter.length >= 1) return res.status(409).json({ message: 'Product already exists' });
 
   const newProduct = {
     id: allProducts.length,
