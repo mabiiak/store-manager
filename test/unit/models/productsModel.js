@@ -14,16 +14,17 @@ const mocha = require('../mocha');
 describe('Model Products', () => {
   describe('getAllProducts', () => {
     before(() => {
-      sinon.stub(connection, 'execute').resolves(mocha.produtosDuble)
+      sinon.stub(connection, 'query').resolves(mocha.produtosDuble)
     });
 
     after(() => {
-      connection.execute.restore();
+      connection.query.restore();
     });
 
     it('retorna todos os produtos', async () => {
-      const allProducts = await getAllProductsModel();
-      expect(allProducts).to.be.deep.equal(mocha.produtosDuble);
+      const allProducts = await model.getAllProductsModel();
+
+      expect(allProducts).to.be.deep.equal([mocha.produtosDuble]);
     })
   });
 
@@ -37,9 +38,9 @@ describe('Model Products', () => {
         connection.execute.restore();
       })
 
-      it('retorna todos os dados', async () => {
-        const allProducts = await createNewProductModel(mocha.oneProduct);
-        expect(allProducts.quantity).to.be.equals(2);
+      it('retorna o dado inserido', async () => {
+        const testFunc = await createNewProductModel(mocha.oneProduct);
+        expect(testFunc.quantity).to.be.equals(2);
       })
     });
   });

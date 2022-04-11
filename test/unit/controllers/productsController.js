@@ -4,6 +4,7 @@ const sinon = require('sinon');
 const { getAllProductsController } = require('../../../controllers/productsController');
 const products = require('../../../controllers/productsController');
 const mocha = require('../mocha');
+const model = require('../../../models/productsModel');
 
 describe('Products Controllers', () => {
   describe('getAllProductsController', () => {
@@ -13,11 +14,13 @@ describe('Products Controllers', () => {
     before(() => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns(res);
+      sinon.stub(model, 'getAllProductsModel').resolves([mocha.produtosDuble]);
     });
 
     it('deve chamar a função `res.status`', async () => {
       await getAllProductsController(req, res);
       expect(res.status.calledWith(200)).to.be.true;
+      model.getAllProductsModel.restore();
     });
 
     it('deve chamar a função `res.json`', async () => {

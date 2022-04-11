@@ -4,6 +4,7 @@ async function getAllProductsModel() {
   const [products] = await connection.query(
     'SELECT * FROM StoreManager.products;',
   );
+
   return products;
 }
 
@@ -24,9 +25,10 @@ async function editProductModel(id, name, quantity) {
 }
 
 async function deleteProductModel(id) {
-  await connection.execute(`
+  const [products] = await connection.execute(`
   DELETE FROM StoreManager.products WHERE id = ${id};
 `);
+  return products;
 }
 
 module.exports = {
