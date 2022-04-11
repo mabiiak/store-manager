@@ -1,16 +1,16 @@
 const connection = require('./connection');
 
 async function getAllProductsModel() {
-  const [products] = await connection.query(
-    'SELECT * FROM StoreManager.products;',
-  );
-
+  const query = 'SELECT * FROM StoreManager.products;';
+  const [products] = await connection.execute(query);
+  console.log(products);
   return products;
 }
 
 async function getProductByIdModel(id) {
   const query = 'SELECT * FROM StoreManager.products WHERE id = ?;';
   const [product] = await connection.execute(query, [id]);
+  console.log(product);
   return product;
 }
 
@@ -29,17 +29,16 @@ async function createNewProductModel(name, quantity) {
 }
 
 async function editProductModel(id, name, quantity) {
-  const [products] = await connection.execute(`
-    UPDATE products SET name = "${name}", quantity = "${quantity}"
-    WHERE id = ${id};
-  `);
+  const query = `UPDATE products SET name = ?, quantity = ?
+  WHERE id = ?;`;
+
+  const [products] = await connection.execute(query, [name, quantity, id]);
   return products;
 }
 
 async function deleteProductModel(id) {
-  const [products] = await connection.execute(`
-  DELETE FROM StoreManager.products WHERE id = ${id};
-`);
+  const query = 'DELETE FROM StoreManager.products WHERE id = ?';
+  const [products] = await connection.execute(query, [id]);
   return products;
 }
 

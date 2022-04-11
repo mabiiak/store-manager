@@ -7,8 +7,11 @@ const {
   deleteProductModel,
 } = require('../models/productsModel');
 
+// const middleware = require('../middlewares/products');
+
 const getAllProductsController = async (req, res) => {
   const products = await getAllProductsModel();
+
   res.status(200).json(products);
 };
 
@@ -26,9 +29,9 @@ const getProductByIdController = async (req, res) => {
 const newProductController = async (req, res) => {
   const { name, quantity } = req.body;
   const allProducts = await getAllProductsModel();
-  console.log(name);
+
   const filter = await getProductByNameModel(name);
-  console.log(filter);
+
   if (filter.length >= 1) return res.status(409).json({ message: 'Product already exists' });
 
   const newProduct = {

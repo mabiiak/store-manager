@@ -10,4 +10,6 @@ module.exports = {
   productSolo: { id: 1, name: 'Martelo de Thor', quantity: 10 },
 
   editProduc: { id: 1, name: 'Martelo de Odin', quantity: 2 },
+
+  product: [{ id: 1, name: 'Martelo de Odin', quantity: 2 }],
 }

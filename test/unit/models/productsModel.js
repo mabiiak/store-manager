@@ -8,12 +8,12 @@ const products = require('../dubles/products');
 describe('Model Products', () => {
   // describe('getAllProducts', () => {
   //   before(() => {
-  //     sinon.stub(connection, 'query').resolves(products.allProducts)
+  //     sinon.stub(connection, 'execute').resolves(products.allProducts)
   //   });
 
-  //   after(() => {
-  //     connection.query.restore();
-  //   });
+  //   // after(() => {
+  //   //   connection.query.restore();
+  //   // });
 
   //   it('A query retorna todos os produtos', async () => {
   //     await model.getAllProductsModel();
@@ -63,6 +63,7 @@ describe('Model Products', () => {
     after(() => {
       connection.execute.restore();
     });
+
     it('A query deleta um produto existente', async () => {
       await model.deleteProductModel(products.productSolo.id);
       expect(connection.execute.calledOnce).to.be.true;
