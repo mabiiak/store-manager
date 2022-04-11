@@ -8,6 +8,20 @@ async function getAllProductsModel() {
   return products;
 }
 
+async function getProductByIdModel(n) {
+  const [product] = await connection.execute(
+    `SELECT * FROM StoreManager.products WHERE id = ${n};`,
+  );
+  return product;
+}
+
+async function getProductByNameModel(n) {
+  const [product] = await connection.execute(
+    `SELECT * FROM StoreManager.products WHERE name = ${n};`,
+  );
+  return product;
+}
+
 async function createNewProductModel(name, quantity) {
   const [products] = await connection.execute(`
     INSERT INTO products (name, quantity) VALUES
@@ -33,6 +47,8 @@ async function deleteProductModel(id) {
 
 module.exports = {
   getAllProductsModel,
+  getProductByIdModel,
+  getProductByNameModel,
   createNewProductModel,
   editProductModel,
   deleteProductModel,

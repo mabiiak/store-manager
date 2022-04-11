@@ -2,10 +2,9 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const products = require('../dubles/products');
-const mocha = require('../mocha');
+
 const controller = require('../../../controllers/productsController');
 const model = require('../../../models/productsModel');
-const { assert } = require('joi');
 
 describe('Products Controllers', () => {
   describe('getAllProductsController', () => {
@@ -13,8 +12,9 @@ describe('Products Controllers', () => {
     const res = {};
 
     before(() => {
-      res.status = sinon.stub().returns(200);
+      res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
+
       sinon.stub(model, 'getAllProductsModel').resolves(products.allProducts);
     });
 
@@ -22,21 +22,20 @@ describe('Products Controllers', () => {
       model.getAllProductsModel.restore();
     })
 
-    it('deve chamar a função `res.status`', async () => {
+    it('Retorna `res.status(200)`', async () => {
       await controller.getAllProductsController(req, res);
-      await model.getAllProductsModel();
       expect(res.status.calledWith(200)).to.be.true;
     });
 
-    // it('deve chamar a função `res.json`', async () => {
-    //   await getAllProductsController(req, res);
-    //   expect(res.json.called).to.be.true;
-    // });
+    it('`res.json` é chamado', async () => {
+      await controller.getAllProductsController(req, res);
+      expect(res.json.called).to.be.true;
+    });
   })
 
   describe('getProductByIdController', () => {
     const req = {
-      params: { "id": 1 }
+      params: { id: 1 }
     };
     const res = {};
     const reqNull = {
@@ -46,14 +45,20 @@ describe('Products Controllers', () => {
     before(() => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
+
+      sinon.stub(model, 'getProductByIdModel').resolves(1);
     });
 
-    it('deve retornar o produto com o id buscado', async () => {
+    after(() => {
+      model.getProductByIdModel.restore();
+    })
+
+    it('Retorna `res.status(200)`', async () => {
       await controller.getProductByIdController(req, res);
-      assert(res.status.calledWith(200));
+      expect(res.status.calledWith(200)).to.be.true;
     });
 
-    it('Não deve retornar nenhum produto', async () => {
+    it('Retorna `res.status(404)`', async () => {
       await controller.getProductByIdController(reqNull, res);
       expect(res.status.calledWith(404)).to.be.true;
     });
@@ -71,34 +76,38 @@ describe('Products Controllers', () => {
     before(() => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
-      sinon.stub(controller, 'newProductController').resolves(duble.newSale)
+
+      sinon.stub(model, 'getAllProductsModel').resolves(products.allProducts);
+      sinon.stub(model, 'getProductByNameModel').resolves(products.oneProduct)
+      sinon.stub(model, 'createNewProductModel').resolves(products.oneProduct)
     });
 
-    // it('deve adicionar o produto novo', async () => {
-    //   await controller.newProductController(req, res);
-    //   expect(res.status.called).to.be.true;
-    // });
-
-    it('deve adicionar o produto novo', async () => {
-      const testFunc = await controller.newProductController(req, res);
-      expect(testFunc).to.be.deep.eq(duble.newSale);
+    it('Retorna `res.status(201)`', async () => {
+      await controller.newProductController(req, res);
+      expect(res.status.calledWith(201)).to.be.true;
     });
   });
 
   describe('editProductController', () => {
-    const req = {};
+    const req = {
+      params: { id: 1 },
+      body: {
+        name: 'Machado de Odin',
+        quantity: 2,
+      }
+    };
     const res = {};
-    const duble = {id: 5, name: 'Machado do Thor', 'quantity': 2}
 
     before(() => {
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns(res);
-      sinon.stub(controller , 'editProductController').resolves(duble);
+      res.json = sinon.stub();
+
+      sinon.stub(model , 'editProductModel').resolves(products.editProduc);
     });
 
-    it('deve editar o produto', async () => {
-      const funcTest = await controller.editProductController(req, res);
-      expect(funcTest).to.be.deep.equal(duble);
+    it('Retorna `res.status(200)', async () => {
+      await controller.editProductController(req, res);
+      expect(res.status.calledWith(200)).to.be.true;
     });
   });
 });

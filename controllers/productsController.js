@@ -1,5 +1,7 @@
 const {
   getAllProductsModel,
+  getProductByIdModel,
+  getProductByNameModel,
   createNewProductModel,
   editProductModel,
   deleteProductModel,
@@ -12,23 +14,22 @@ const getAllProductsController = async (req, res) => {
 
 const getProductByIdController = async (req, res) => {
   const { id } = req.params;
-  const data = await getAllProductsModel();
+  const data = await getProductByIdModel(Number(id));
 
-  const findProduct = data.find((product) => product.id === Number(id));
-
-  if (!findProduct) {
+  if (data.length === 0) {
     return res.status(404).json({ message: 'Product not found' });
   }
 
-  res.status(200).json(findProduct);
+  res.status(200).json(data);
 };
 
 const newProductController = async (req, res) => {
   const { name, quantity } = req.body;
   const allProducts = await getAllProductsModel();
-  const filter = allProducts.filter((p) => p.name === name);
 
-  if (filter.length >= 1) return res.status(409).json({ message: 'Product already exists' });
+  const filter = getProductByNameModel(name);
+
+  if (filter.length === 0) return res.status(409).json({ message: 'Product already exists' });
 
   const newProduct = {
     id: allProducts.length,

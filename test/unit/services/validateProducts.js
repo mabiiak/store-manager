@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const validate = require('../../../services/validateProducts');
 
-describe.only('Validates Products', () => {
+describe('Validates Products', () => {
   describe('validateProductName', async () => {
     const req = {
       body: { name: 'Bob'}
