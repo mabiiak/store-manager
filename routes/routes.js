@@ -5,8 +5,8 @@ const app = express.Router();
 const controllerSales = require('../controllers/sales');
 const controllerProducts = require('../controllers/products');
 
-const validateProducts = require('../services/validateProducts');
-const validateSales = require('../services/validateSales');
+const validateProducts = require('../middlewares/validateProducts');
+const validateSales = require('../middlewares/validateSales');
 
 app.get('/products', controllerProducts.getAll);
 app.get('/products/:id', controllerProducts.getById);

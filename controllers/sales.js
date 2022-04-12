@@ -1,13 +1,13 @@
-const modelsSales = require('../models/sales');
+const servicesSales = require('../services/sales');
 
 const getAll = async (req, res) => {
-  const sales = await modelsSales.getAll();
+  const sales = await servicesSales.getAll();
   res.status(200).json(sales);
 };
 
 const getById = async (req, res) => {
   const { id } = req.params;
-  const findSale = await modelsSales.getById(id);
+  const findSale = await servicesSales.getById(id);
   
   if (!findSale || findSale.length === 0) {
     return res.status(404).json({ message: 'Sale not found' });
@@ -17,14 +17,14 @@ const getById = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const allSale = await modelsSales.getAll();
+  const allSale = await servicesSales.getAll();
 
   const newSale = {
     id: allSale.length,
     itemsSold: req.body,
   };
  
-  modelsSales.create(newSale);
+  servicesSales.create(newSale);
   res.status(201).json(newSale);
 };
 
@@ -45,8 +45,8 @@ const edit = async (req, res) => {
     itemsSold: req.body,
   };
 
-  modelsSales.deleteItem(Number(id));
-  modelsSales.create(reAdd);
+  servicesSales.deleteItem(Number(id));
+  servicesSales.create(reAdd);
 
   res.status(200).json(itemEdit);
 };
@@ -55,7 +55,7 @@ const deleteItem = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await modelsSales.deleteItem(Number(id));
+    await servicesSales.deleteItem(Number(id));
     res.status(204).end();
   } catch (error) {
     console.log(error);

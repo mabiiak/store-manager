@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const connection = require('../../../models/connection');
 
-const validate = require('../../../services/validateProducts');
+const validate = require('../../../middlewares/validateProducts');
 const model = require('../../../models/products');
 const products = require('../dubles/products');
 

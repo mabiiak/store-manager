@@ -1,4 +1,4 @@
-const modelsProducts = require('../models/products');
+const servicesProducts = require('../services/products');
 
 const validateProductName = async (req, res, next) => {
   const { name } = req.body;
@@ -26,7 +26,7 @@ const validateQuantityProduct = async (req, res, next) => {
 
 const checkProductNotExist = async (req, res, next) => {
   const { id } = req.params;
-  const data = await modelsProducts.getAll();
+  const data = await servicesProducts.getAll();
 
   const findProduct = data.find((product) => product.id === Number(id));
 

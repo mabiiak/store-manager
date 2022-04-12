@@ -1,13 +1,13 @@
-const middlewareProducts = require('../middlewares/products');
+const servicesProducts = require('../services/products');
 
 const getAll = async (req, res) => {
-  const products = await middlewareProducts.getAll();
+  const products = await servicesProducts.getAll();
   res.status(200).json(products);
 };
 
 const getById = async (req, res) => {
   const { id } = req.params;
-  const [data] = await middlewareProducts.getById(Number(id));
+  const [data] = await servicesProducts.getById(Number(id));
 
   if (!data) {
     return res.status(404).json({ message: 'Product not found' });
@@ -19,9 +19,9 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
   const { name, quantity } = req.body;
 
-  const allProducts = await middlewareProducts.getAll();
+  const allProducts = await servicesProducts.getAll();
 
-  const filter = await middlewareProducts.getByName(name);
+  const filter = await servicesProducts.getByName(name);
   console.log(filter);
   if (filter.length >= 1) return res.status(409).json({ message: 'Product already exists' });
 
@@ -30,7 +30,7 @@ const create = async (req, res) => {
     name,
     quantity,
   };
-  await middlewareProducts.create(name, quantity);
+  await servicesProducts.create(name, quantity);
   res.status(201).json(newProduct);
 };
 
@@ -38,7 +38,7 @@ const edit = async (req, res) => {
   const { id } = req.params;
   const { name, quantity } = req.body;
 
-  await middlewareProducts.edit(Number(id), name, quantity);
+  await servicesProducts.edit(Number(id), name, quantity);
 
   const productEdit = {
     id,
@@ -52,7 +52,7 @@ const edit = async (req, res) => {
 const deleteItem = async (req, res) => {
   const { id } = req.params;
 
-  await middlewareProducts.deleteItem(Number(id));
+  await servicesProducts.deleteItem(Number(id));
 
   res.status(204).end();
 };
