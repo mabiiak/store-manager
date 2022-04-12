@@ -19,6 +19,7 @@ const deleteItem = async (id) => {
 const result = await modelSales.deleteItem(id);
 return result;
 };
+
 const find = async (id) => {
 const result = await modelSales.find(id);
 return result;

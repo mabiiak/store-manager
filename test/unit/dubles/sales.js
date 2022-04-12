@@ -5,7 +5,7 @@ module.exports = {
     { saleId: 3, productId: 1, quantity: 2, date: '2020/12/27' },
   ],
 
-  saleSolo: [{ date:'2021/11/12', productId:2, quantity:5 }],
+  sale: [{ date:'2021/11/12', productId:2, quantity:5 }],
 
   newSale: {
     id: 5,

@@ -39,7 +39,7 @@ describe('Model Sales', () => {
 
   describe(' 3 - create', () => {
     before(() => {
-      sinon.stub(connection, 'execute').resolves(sales.newSale);
+      sinon.stub(connection, 'execute').resolves([]);
     });
     
     after(() => {

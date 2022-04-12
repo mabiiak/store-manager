@@ -17,6 +17,7 @@ const getByName = async (name) => {
 
 const create = async (name, quantity) => {
   const result = await modelProducts.create(name, quantity);
+
   return result;
 };
 

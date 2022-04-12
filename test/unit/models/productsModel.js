@@ -56,7 +56,7 @@ describe('Model Products', () => {
   describe('4 - create', () => {
     describe('A query adiciona um novo produto', () => {
       before(() => {
-        sinon.stub(connection, 'execute').resolves(products.oneProduct)
+        sinon.stub(connection, 'execute').resolves(products.product)
       });
 
       after(() => {
@@ -87,7 +87,7 @@ describe('Model Products', () => {
 
   describe('6 - deleteProductModel', async () => {
     before(() => {
-      sinon.stub(connection, 'execute').resolves([products.productSolo])
+      sinon.stub(connection, 'execute').resolves([products.product])
     });
 
     after(() => {
@@ -95,7 +95,7 @@ describe('Model Products', () => {
     });
 
     it('A query deleta um produto existente', async () => {
-      await model.deleteItem(products.productSolo.id);
+      await model.deleteItem(products.product.id);
       expect(connection.execute.calledOnce).to.be.true;
     })
   });

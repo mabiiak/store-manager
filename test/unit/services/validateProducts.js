@@ -1,64 +1,126 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
-const connection = require('../../../models/connection');
-
-const validate = require('../../../middlewares/validateProducts');
+const services = require('../../../services/products');
 const model = require('../../../models/products');
-const products = require('../dubles/products');
+const mochaProducts = require('../dubles/products');
 
-describe('Validates Products', () => {
-  describe('validateProductName', async () => {
-    const req = {
-      body: { name: 'Bob'}
-    };
-    const res = {};
-
+describe('Services Products', () => {
+  describe('1 - getAll', () => {
     before(() => {
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
+      sinon.stub(model, 'getAll').resolves([mochaProducts.allProducts])
+    });
+    after(() => {
+      model.getAll.restore();
     });
 
-    it('Deve retornar status(422) ao passar nome inválido', async () => {
-      await validate.validateProductName(req, res);
-      expect(res.status.calledWith(422)).to.be.true;
-    });
+    it('Retorna todos os produtos', async () => {
+      const service =  await services.getAll();
+      expect(service).to.be.deep.equal(mochaProducts.allProducts)
+    })
   })
 
-  describe('validateQuantityProduct', async () => {
-    const req = {
-      body: { quantity: -1 }
-    };
-    const res = {};
-
+  describe('2 - getById', () => {
     before(() => {
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
+      sinon.stub(model, 'getById').resolves(mochaProducts.product)
+    });
+    after(() => {
+      model.getById.restore();
     });
 
-    it('Deve retornar status(422) ao passar quantity inválido', async () => {
-      await validate.validateQuantityProduct(req, res);
-      expect(res.status.calledWith(422)).to.be.true;
-    });
+    it('Retorna todos o produto com o id buscado', async () => {
+      const service =  await services.getById(1);
+      expect(service).to.be.deep.equal(mochaProducts.product)
+    })
   })
 
-  describe('checkProductNotExist', async () => {
-    const req = {
-      params: { id: -10 }
-    };
-    const res = {};
+  describe('3 - getByName', () => {
+    describe('nome válido', () => {
+      before(() => {
+        sinon.stub(model, 'getByName').resolves(mochaProducts.product)
+      });
+      after(() => {
+        model.getByName.restore();
+      });
+  
+      it('Retorno de um novo nome - cria novo produto', async () => {
+        const service =  await services.getByName(mochaProducts.newName);
+        expect(service).to.be.deep.equal(mochaProducts.product)
+      })
+    })
 
+    describe('nome inválido', () => {
+      before(() => {
+        sinon.stub(model, 'getByName').resolves([])
+      });
+      after(() => {
+        model.getByName.restore();
+      });
+  
+      it('Retorna de um nome já existente - produto não é criado', async () => {
+        const service =  await services.getByName(mochaProducts.existName);
+        expect(service).to.be.deep.equal([])
+      })
+    })
+  })
+
+  describe('4 - create', () => {
+    describe('Produto é criado', () => {
+      before(() => {
+        sinon.stub(model, 'create').resolves([])
+      });
+      after(() => {
+        model.create.restore();
+      });
+  
+      it('Produto é criado', async () => {
+        const { name, quantity } = mochaProducts.inserProduct;
+        const service =  await services.create(name, quantity);
+        expect(service).to.be.deep.equal([])
+      })
+    })
+
+    describe('Produto não é criado', () => {
+      before(() => {
+        sinon.stub(model, 'create').resolves(mochaProducts.product)
+      });
+      after(() => {
+        model.create.restore();
+      });
+  
+      it('Produto é criado', async () => {
+        const service =  await services.create(mochaProducts.newName, 5);
+        expect(service).to.be.deep.equal(mochaProducts.product)
+      })
+    })
+  })
+
+  describe('5 - edit', () => {
     before(() => {
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
-
-      sinon.stub(connection, 'execute').resolves([])
-      sinon.stub(model, 'getProductByIdModel').resolves([])
+      sinon.stub(model, 'edit').resolves([])
+    });
+    after(() => {
+      model.edit.restore();
     });
 
-    it('Deve retornar status(404) ao passar id de um produto inexistente', async () => {
-      await validate.checkProductNotExist(req, res);
-      expect(res.status.calledWith(404)).to.be.true;
+    it('Produto é criado', async () => {
+      const { id, name, quantity } = mochaProducts.product;
+      const service =  await services.edit(id, name, quantity);
+      expect(service).to.be.deep.equal([])
+    })
+  })
+
+  describe('6 - deleteItem', () => {
+    before(() => {
+      sinon.stub(model, 'deleteItem').resolves([])
     });
+    after(() => {
+      model.deleteItem.restore();
+    });
+
+    it('Produto é criado', async () => {
+      const service =  await services.deleteItem(1);
+      expect(service).to.be.deep.equal([])
+    })
   })
 });

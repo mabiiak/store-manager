@@ -22,9 +22,8 @@ async function getById(n) {
 }
 
 async function create(newSales) {
-  await connection.execute('INSERT INTO sales (date) VALUES (NOW());');
   const { id, itemsSold } = newSales;
-
+  await connection.execute('INSERT INTO sales (date) VALUES (NOW());');
   const query = `INSERT INTO sales_products (sale_id, product_id, quantity)
   VALUES (?, ?, ?)`;
 

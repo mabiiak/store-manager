@@ -5,11 +5,10 @@ module.exports = {
     { id: 3, name: 'Escudo do Capitão América', quantity: 30 }, 
   ],
 
-  oneProduct: [{ name: 'Óculos do Homem de Ferro', quantity: 2 }],
+  product: [{ id: 1, name: 'Óculos do Homem de Ferro', quantity: 2 }],
 
-  productSolo: { id: 1, name: 'Martelo de Thor', quantity: 10 },
+  newName: 'Óculos do Homem de Ferro',
+  existName: 'Traje de encolhimento',
 
-  editProduc: { id: 1, name: 'Martelo de Odin', quantity: 2 },
-
-  product: [{ id: 1, name: 'Martelo de Odin', quantity: 2 }],
+  inserProduct: { name: 'coroa da feiticeira escarlate', quantity: 5 },
 }
