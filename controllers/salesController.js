@@ -1,18 +1,18 @@
 const {
-  getAllSalesModel,
-  getSaleByIdModel,
-  newSalesModel,
-  deleteSalesModel,
-} = require('../models/salesModel');
+  getAll,
+  getById,
+  create,
+  deleteItem,
+} = require('../models/sales');
 
 const getAllSalesController = async (req, res) => {
-  const sales = await getAllSalesModel();
+  const sales = await getAll();
   res.status(200).json(sales);
 };
 
 const getOneSaleController = async (req, res) => {
   const { id } = req.params;
-  const findSale = await getSaleByIdModel(id);
+  const findSale = await getById(id);
   
   if (!findSale || findSale.length === 0) {
     return res.status(404).json({ message: 'Sale not found' });
@@ -22,14 +22,14 @@ const getOneSaleController = async (req, res) => {
 };
 
 const newSalesController = async (req, res) => {
-  const allSale = await getAllSalesModel();
+  const allSale = await getAll();
 
   const newSale = {
     id: allSale.length,
     itemsSold: req.body,
   };
  
-  newSalesModel(newSale);
+  create(newSale);
   res.status(201).json(newSale);
 };
 
@@ -50,8 +50,8 @@ const editSaleController = async (req, res) => {
     itemsSold: req.body,
   };
 
-  deleteSalesModel(Number(id));
-  newSalesModel(reAdd);
+  deleteItem(Number(id));
+  create(reAdd);
 
   res.status(200).json(itemEdit);
 };
@@ -60,7 +60,7 @@ const deleteSaleController = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await deleteSalesModel(Number(id));
+    await deleteItem(Number(id));
     res.status(204).end();
   } catch (error) {
     console.log(error);

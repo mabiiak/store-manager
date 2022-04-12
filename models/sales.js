@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-async function getAllSalesModel() {
+async function getAll() {
   const [sales] = await connection.execute(
     `SELECT sp.sale_id AS saleId, sp.product_id AS productId, sp.quantity, s.date
     FROM sales_products AS sp
@@ -10,7 +10,7 @@ async function getAllSalesModel() {
   return sales;
 }
 
-async function getSaleByIdModel(n) {
+async function getById(n) {
   const [sales] = await connection.execute(
     `SELECT s.date, sp.product_id AS productId, sp.quantity
     FROM sales_products AS sp
@@ -21,7 +21,7 @@ async function getSaleByIdModel(n) {
   return sales;
 }
 
-async function newSalesModel(newSales) {
+async function create(newSales) {
   await connection.execute('INSERT INTO sales (date) VALUES (NOW());');
   const { id, itemsSold } = newSales;
 
@@ -35,14 +35,14 @@ async function newSalesModel(newSales) {
   }));
 }
 
-async function deleteSalesModel(saleId) {
+async function deleteItem(saleId) {
   const query = 'DELETE from sales_products WHERE sale_id = ?';
 
   const [sales] = await connection.execute(query, [saleId]);
   return sales;
 }
 
-async function findSales(id) {
+async function find(id) {
   const query = 'SELECT * FROM sales_products WHERE sale_id = ?';
 
   const [sales] = await connection.execute(query, [id]);
@@ -52,9 +52,9 @@ async function findSales(id) {
 }
 
 module.exports = {
-  getAllSalesModel,
-  getSaleByIdModel,
-  newSalesModel,
-  deleteSalesModel,
-  findSales,
+  getAll,
+  getById,
+  create,
+  deleteItem,
+  find,
 };
