@@ -23,6 +23,7 @@ app.post('/products',
 app.post('/sales',
   validateSales.validateQuantitySales,
   validateSales.validateProductIdSale,
+  validateSales.checkQuantityStock,
   controllerSales.create);
 
 app.put('/products/:id',

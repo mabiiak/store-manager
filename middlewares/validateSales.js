@@ -1,4 +1,16 @@
 const servicesSales = require('../services/sales');
+const servicesProducts = require('../services/products');
+
+const checkQuantityStock = async (req, res, next) => {
+  const [{ quantity, productId }] = req.body;
+  const [stock] = await servicesProducts.getById(Number(productId));
+
+  const calc = (stock.quantity - quantity);
+  
+  if (calc <= 0) return res.status(422).json({ message: 'Such amount is not permitted to sell' });
+
+  next();
+};
 
 const validateQuantitySales = async (req, res, next) => {
   const [{ quantity }] = req.body;
@@ -33,4 +45,5 @@ module.exports = {
   validateQuantitySales,
   validateProductIdSale,
   checkSaleExist,
+  checkQuantityStock,
 };
