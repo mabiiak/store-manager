@@ -1,4 +1,4 @@
-const { find } = require('../models/sales');
+const modelSales = require('../models/sales');
 
 const validateQuantitySales = async (req, res, next) => {
   const [{ quantity }] = req.body;
@@ -23,7 +23,7 @@ const validateProductIdSale = async (req, res, next) => {
 const checkSaleExist = async (req, res, next) => {
   const { id } = req.params;
   
-  const findId = await find(id);
+  const findId = await modelSales.find(id);
 
   if (findId === false) return res.status(404).json({ message: 'Sale not found' });
   next();
