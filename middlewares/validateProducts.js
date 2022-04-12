@@ -1,11 +1,16 @@
 const servicesProducts = require('../services/products');
 
-const validateProductName = async (req, res, next) => {
+const checkNameExist = async (req, res, next) => {
   const { name } = req.body;
-
   const filter = await servicesProducts.getByName(name);
 
   if (filter.length >= 1) return res.status(409).json({ message: 'Product already exists' });
+
+  next();
+};
+
+const validateProductName = async (req, res, next) => {
+  const { name } = req.body;
 
   if (!name) return res.status(400).json({ message: '"name" is required' });
 
@@ -45,4 +50,5 @@ module.exports = {
   validateProductName,
   validateQuantityProduct,
   checkProductNotExist,
+  checkNameExist,
 };

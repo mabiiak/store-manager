@@ -17,6 +17,7 @@ app.get('/sales/:id', controllerSales.getById);
 app.post('/products',
   validateProducts.validateProductName,
   validateProducts.validateQuantityProduct,
+  validateProducts.checkNameExist,
   controllerProducts.create);
 
 app.post('/sales',
