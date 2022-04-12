@@ -6,7 +6,7 @@ const controller = require('../../../controllers/products');
 const services = require('../../../services/products');
 
 describe('Products Controllers', () => {
-  describe('getAll', () => {
+  describe('1 - getAll', () => {
     const req = {};
     const res = {};
 
@@ -27,7 +27,7 @@ describe('Products Controllers', () => {
     });
   })
 
-  describe('getById', () => {
+  describe('2 - getById', () => {
     const req = {
       params: { id: 1 }
     };
@@ -50,7 +50,7 @@ describe('Products Controllers', () => {
     });
   });
 
-  describe('create', () => {
+  describe('3 - create', () => {
     const req = {
       body : {
         name: 'Óculos do Homem de Ferro',
@@ -69,7 +69,7 @@ describe('Products Controllers', () => {
 
     after(() => {
       services.getAll.restore();
-      services.create;
+      services.create.restore();
     })
 
     it('Retorna `res.status(201)`', async () => {
@@ -78,7 +78,7 @@ describe('Products Controllers', () => {
     });
   });
 
-  describe('edit', () => {
+  describe('4 - edit', () => {
     const req = {
       params: { id: 1 },
       body: {

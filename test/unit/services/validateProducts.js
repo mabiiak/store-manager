@@ -97,7 +97,7 @@ describe('Services Products', () => {
 
   describe('5 - edit', () => {
     before(() => {
-      sinon.stub(model, 'edit').resolves([])
+      sinon.stub(model, 'edit').resolves(mochaProducts.productSolo)
     });
     after(() => {
       model.edit.restore();
@@ -106,7 +106,7 @@ describe('Services Products', () => {
     it('Produto é criado', async () => {
       const { id, name, quantity } = mochaProducts.product;
       const service =  await services.edit(id, name, quantity);
-      expect(service).to.be.deep.equal([])
+      expect(service).to.be.deep.equal(mochaProducts.productSolo)
     })
   })
 

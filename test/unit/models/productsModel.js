@@ -54,20 +54,18 @@ describe('Model Products', () => {
   });
 
   describe('4 - create', () => {
-    describe('A query adiciona um novo produto', () => {
-      before(() => {
-        sinon.stub(connection, 'execute').resolves(products.product)
-      });
-
-      after(() => {
-        connection.execute.restore();
-      })
-
-      it('Adiciona um novo produto', async () => {
-        await model.create(products.oneProduct);
-        expect(connection.execute.calledOnce).to.be.true;
-      })
+    before(() => {
+      sinon.stub(connection, 'execute').resolves(products.product)
     });
+
+    after(() => {
+      connection.execute.restore();
+    })
+
+    it('Adiciona um novo produto', async () => {
+      await model.create(products.oneProduct);
+      expect(connection.execute.calledOnce).to.be.true;
+    })
   });
 
   describe('5 - editProductModel', () => {

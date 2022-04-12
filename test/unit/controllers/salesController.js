@@ -1,97 +1,101 @@
-// const { expect } = require('chai');
-// const sinon = require('sinon');
+const { expect } = require('chai');
+const sinon = require('sinon');
 
-// const sales = require('../../../controllers/salesController')
+const sales = require('../dubles/sales');
+const controller = require('../../../controllers/sales');
+const services = require('../../../services/sales');
 
-// describe('Sales Controller', () => {
-//   describe('getAllSalesController', () => {
-//     const req = {};
-//     const res = {};
+describe('Sales Controllers', () => {
+  describe('1 - getAll', () => {
+    const req = {};
+    const res = {};
 
-//     before(() => {
-//       res.status = sinon.stub().returns(res);
-//       res.json = sinon.stub().returns(res);
-//     });
+    before(() => {
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
 
-//     it('deve chamar a função `res.status`', async () => {
-//       await sales.getAllSalesController(req, res);
-//       expect(res.status.calledWith(200)).to.be.true;
-//     });
+      sinon.stub(services, 'getAll').resolves(sales.allSales);
+    });
 
-//     it('deve chamar a função `res.json`', async () => {
-//       await sales.getAllSalesController(req, res);
-//       expect(res.json.called).to.be.true;
-//     });
-//   });
+    after(() => {
+      services.getAll.restore();
+    })
 
-//   describe('getOneSaleController', () => {
-//     const req = {
-//       params: { id: 1 }
-//     };
-//     const res = {};
-//     const reqNull = {
-//       params: { id: 0 }
-//     }
+    it('Retorna `res.status(200)`', async () => {
+      await controller.getAll(req, res);
+      expect(res.status.calledWith(200)).to.be.true;
+    });
+  })
 
-//     before(() => {
-//       res.status = sinon.stub().returns(res);
-//       res.json = sinon.stub();
-//     });
+  describe('2 - getById', () => {
+    const req = { params: { id: 1 } };
+    const res = {};
 
-//     it('deve chamar a função `res.status` com o valor 200', async () => {
-//       await sales.getOneSaleController(req, res);
-//       expect(res.status.called).to.be.true;
-//     });
+    before(() => {
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
 
-//     it('Não deve retornar nenhum produto', async () => {
-//       await sales.getOneSaleController(reqNull, res);
-//       expect(res.status.calledWith(404)).to.be.true;
-//     });
-//   });
+      sinon.stub(services, 'getById').resolves(sales.sale);
+    });
 
-//   describe('newSalesController', () => {
-//     const req = {
-//       body: [{
-//         productId: 1,
-//         quantity: 10,
-//       }]
-//     };
-//     const res = {};
+    after(() => {
+      services.getById.restore();
+    })
 
-//     before(() => {
-//       res.status = sinon.stub().returns(res);
-//       res.json = sinon.stub();
-//     });
+    it('Se `res.status` é chamado', async () => {
+      await controller.getById(req, res);
+      expect(res.status.called).to.be.true;
+    });
+  });
 
-//     it('deve chamar a função `res.status` com o valor 201', async () => {
-//       await sales.newSalesController(req, res);
-//       expect(res.status.calledWith(201)).to.be.true;
-//     });
-//   });
+  describe('3 - create', () => {
+    const req = {
+      body : {
+        name: 'Óculos do Homem de Ferro',
+        quantity: 2
+      }
+    };
+    const res = {};
 
-//   describe('editSaleController', () => {
-//     const req = {
-//       params: { id: 1 },
-//       body: [{
-//         productId: 1,
-//         quantity: 10,
-//       }]
-//     };
-//     const res = {};
+    before(() => {
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
 
-//     before(() => {
-//       res.status = sinon.stub().returns(res);
-//       res.json = sinon.stub();
-//     });
+      sinon.stub(services, 'getAll').resolves(sales.allSales);
+      sinon.stub(services, 'create').resolves(sales.allSales)
+    });
 
-//     it('deve chamar a função `res.status` com o valor 200', async () => {
-//       await sales.editSaleController(req, res);
-//       expect(res.status.calledWith(200)).to.be.true;
-//     });
+    after(() => {
+      services.getAll.restore();
+      services.create.restore();
+    })
 
-//     it('deve chamar a função `res.json`', async () => {
-//       await sales.editSaleController(req, res);
-//       expect(res.json.called).to.be.true;
-//     });
-//   });
-// });
+    it('Retorna `res.status(201)`', async () => {
+      await controller.create(req, res);
+      expect(res.status.called).to.be.true;
+    });
+  });
+
+  // describe('edit', () => {
+  //   const req = {
+  //     params: { id: 1 },
+  //     body: {
+  //       name: 'Machado de Odin',
+  //       quantity: 2,
+  //     }
+  //   };
+  //   const res = {};
+
+  //   before(() => {
+  //     res.status = sinon.stub().returns(res);
+  //     res.json = sinon.stub();
+
+  //     sinon.stub(services , 'deleteItem').resolves(products.editProduc);
+  //   });
+
+  //   it('Retorna `res.status(200)', async () => {
+  //     await controller.edit(req, res);
+  //     expect(res.status.calledWith(200)).to.be.true;
+  //   });
+  // });
+});

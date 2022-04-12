@@ -37,20 +37,20 @@ describe('Model Sales', () => {
     });
   });
 
-  describe(' 3 - create', () => {
-    before(() => {
-      sinon.stub(connection, 'execute').resolves([]);
-    });
+  // describe(' 3 - create', () => {
+  //   before(() => {
+  //     sinon.stub(connection, 'execute').resolves([]);
+  //   });
     
-    after(() => {
-      connection.execute.restore();
-    });
+  //   after(() => {
+  //     connection.execute.restore();
+  //   });
 
-    it('A query cria uma nova venda', async () => {
-      await model.create(sales.newSale);
-      expect(connection.execute.calledOnce).to.be.true;
-    });
-  });
+  //   it('A query cria uma nova venda', async () => {
+  //     await model.create(sales.newSale);
+  //     expect(connection.execute.calledOnce).to.be.true;
+  //   });
+  // });
 
   describe('4 - deleteItem', () => {
     before(() => {
