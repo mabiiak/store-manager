@@ -1,6 +1,8 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
+const connection = require('../../../models/connection');
+
 const validate = require('../../../services/validateProducts');
 const model = require('../../../models/productsModel');
 const products = require('../dubles/products');
@@ -40,22 +42,23 @@ describe('Validates Products', () => {
     });
   })
 
-  // describe('checkProductNotExist', async () => {
-  //   const req = {
-  //     params: { id: 55 }
-  //   };
-  //   const res = {};
+  describe('checkProductNotExist', async () => {
+    const req = {
+      params: { id: -10 }
+    };
+    const res = {};
 
-  //   before(() => {
-  //     res.status = sinon.stub().returns(res);
-  //     res.json = sinon.stub();
+    before(() => {
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
 
-  //     sinon.stub(model, 'getProductByIdModel').resolves([])
-  //   });
+      sinon.stub(connection, 'execute').resolves([])
+      sinon.stub(model, 'getProductByIdModel').resolves([])
+    });
 
-  //   it('Deve retornar status(422) ao passar id de um produto inexistente', async () => {
-  //     await validate.checkProductNotExist(req, res);
-  //     expect(res.status.calledWith(404)).to.be.true;
-  //   });
-  // })
+    it('Deve retornar status(404) ao passar id de um produto inexistente', async () => {
+      await validate.checkProductNotExist(req, res);
+      expect(res.status.calledWith(404)).to.be.true;
+    });
+  })
 });

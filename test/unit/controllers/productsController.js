@@ -7,7 +7,7 @@ const products = require('../dubles/products');
 const controller = require('../../../controllers/productsController');
 const model = require('../../../models/productsModel');
 
-describe.only('Products Controllers', () => {
+describe('Products Controllers', () => {
   describe('getAllProductsController', () => {
     const req = {};
     const res = {};
@@ -36,33 +36,33 @@ describe.only('Products Controllers', () => {
     });
   })
 
-  describe('getProductByIdController', () => {
-    const req = {
-      params: { id: 1 }
-    };
-    const res = {};
+  // describe('getProductByIdController', () => {
+  //   const req = {
+  //     params: { id: 1 }
+  //   };
+  //   const res = {};
 
-    before(() => {
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
+  //   before(() => {
+  //     res.status = sinon.stub().returns(res);
+  //     res.json = sinon.stub();
 
-      sinon.stub(connection, 'execute').resolves([products.product]);
-      sinon.stub(model, 'getProductByIdModel').resolves(products.product);
+  //     sinon.stub(connection, 'execute').resolves([products.product]);
+  //     sinon.stub(model, 'getProductByIdModel').resolves(products.product);
 
-      console.log('id' ,model.getProductByIdModel);
-    });
+  //     console.log('id' ,model.getProductByIdModel);
+  //   });
 
-    after(() => {
-      connection.execute.restore();
-      model.getProductByIdModel.restore();
-    })
+  //   after(() => {
+  //     connection.execute.restore();
+  //     model.getProductByIdModel.restore();
+  //   })
 
-    it('Se `res.status` é chamado', async () => {
-      const teste = await controller.getProductByIdController(req, res);
+  //   it('Se `res.status` é chamado', async () => {
+  //     const teste = await controller.getProductByIdController(req, res);
 
-      expect(res.status.called).to.be.true;
-    });
-  });
+  //     expect(res.status.called).to.be.true;
+  //   });
+  // });
 
   describe('newProductController', () => {
     const req = {
