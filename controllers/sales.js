@@ -1,18 +1,13 @@
-const {
-  getAll,
-  getById,
-  create,
-  deleteItem,
-} = require('../models/sales');
+const modelsSales = require('../models/sales');
 
-const getAllSalesController = async (req, res) => {
-  const sales = await getAll();
+const getAll = async (req, res) => {
+  const sales = await modelsSales.getAll();
   res.status(200).json(sales);
 };
 
-const getOneSaleController = async (req, res) => {
+const getById = async (req, res) => {
   const { id } = req.params;
-  const findSale = await getById(id);
+  const findSale = await modelsSales.getById(id);
   
   if (!findSale || findSale.length === 0) {
     return res.status(404).json({ message: 'Sale not found' });
@@ -21,19 +16,19 @@ const getOneSaleController = async (req, res) => {
   res.status(200).json(findSale);
 };
 
-const newSalesController = async (req, res) => {
-  const allSale = await getAll();
+const create = async (req, res) => {
+  const allSale = await modelsSales.getAll();
 
   const newSale = {
     id: allSale.length,
     itemsSold: req.body,
   };
  
-  create(newSale);
+  modelsSales.create(newSale);
   res.status(201).json(newSale);
 };
 
-const editSaleController = async (req, res) => {
+const edit = async (req, res) => {
   const { id } = req.params;
   const [{ productId, quantity }] = req.body;
 
@@ -50,17 +45,17 @@ const editSaleController = async (req, res) => {
     itemsSold: req.body,
   };
 
-  deleteItem(Number(id));
-  create(reAdd);
+  modelsSales.deleteItem(Number(id));
+  modelsSales.create(reAdd);
 
   res.status(200).json(itemEdit);
 };
 
-const deleteSaleController = async (req, res) => {
+const deleteItem = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await deleteItem(Number(id));
+    await modelsSales.deleteItem(Number(id));
     res.status(204).end();
   } catch (error) {
     console.log(error);
@@ -68,9 +63,9 @@ const deleteSaleController = async (req, res) => {
 };
 
 module.exports = {
-  getAllSalesController,
-  getOneSaleController,
-  newSalesController,
-  editSaleController,
-  deleteSaleController,
+  getAll,
+  getById,
+  create,
+  edit,
+  deleteItem,
 };

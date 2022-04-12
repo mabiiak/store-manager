@@ -2,21 +2,8 @@ const express = require('express');
 
 const app = express.Router();
 
-const { 
-  getAllProductsController,
-  getProductByIdController,
-  newProductController,
-  editProductController,
-  deleteProductController,
-} = require('../controllers/productsController');
-
-const {
-  getAllSalesController,
-  getOneSaleController,
-  newSalesController,
-  editSaleController,
-  deleteSaleController,
-} = require('../controllers/salesController');
+const controllerSales = require('../controllers/sales');
+const controllerProducts = require('../controllers/productsController');
 
 const {
   validateProductName,
@@ -30,29 +17,24 @@ const {
   checkSaleExist,
 } = require('../services/validateSales');
 
-app.get('/products', getAllProductsController);
-app.get('/products/:id', getProductByIdController);
+app.get('/products', controllerProducts.getAll);
+app.get('/products/:id', controllerProducts.getById);
 
-app.get('/sales', getAllSalesController);
-app.get('/sales/:id', getOneSaleController);
+app.get('/sales', controllerSales.getAll);
+app.get('/sales/:id', controllerSales.getById);
 
-app.post('/products', validateProductName, validateQuantityProduct, newProductController);
-app.post('/sales',
-  validateQuantitySales,
-  validateProductIdSale,
-  newSalesController);
+app.post('/products', validateProductName, validateQuantityProduct, controllerProducts.create);
+app.post('/sales', validateQuantitySales, validateProductIdSale, controllerSales.create);
 
 app.put('/products/:id',
   validateProductName,
   validateQuantityProduct,
   checkProductNotExist,
-  editProductController);
-app.put('/sales/:id',
-  validateQuantitySales,
-  validateProductIdSale,
-  editSaleController);
+  controllerProducts.edit);
 
-app.delete('/products/:id', checkProductNotExist, deleteProductController);
-app.delete('/sales/:id', checkSaleExist, deleteSaleController);
+app.put('/sales/:id', validateQuantitySales, validateProductIdSale, controllerSales.edit);
+
+app.delete('/products/:id', checkProductNotExist, controllerProducts.deleteItem);
+app.delete('/sales/:id', checkSaleExist, controllerSales.deleteItem);
 
 module.exports = app;

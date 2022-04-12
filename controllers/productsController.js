@@ -1,11 +1,11 @@
 const middlewareProducts = require('../middlewares/products');
 
-const getAllProductsController = async (req, res) => {
+const getAll = async (req, res) => {
   const products = await middlewareProducts.getAll();
   res.status(200).json(products);
 };
 
-const getProductByIdController = async (req, res) => {
+const getById = async (req, res) => {
   const { id } = req.params;
   const [data] = await middlewareProducts.getById(Number(id));
 
@@ -16,7 +16,7 @@ const getProductByIdController = async (req, res) => {
   res.status(200).json(data);
 };
 
-const newProductController = async (req, res) => {
+const create = async (req, res) => {
   const { name, quantity } = req.body;
 
   const allProducts = await middlewareProducts.getAll();
@@ -34,7 +34,7 @@ const newProductController = async (req, res) => {
   res.status(201).json(newProduct);
 };
 
-const editProductController = async (req, res) => {
+const edit = async (req, res) => {
   const { id } = req.params;
   const { name, quantity } = req.body;
 
@@ -49,7 +49,7 @@ const editProductController = async (req, res) => {
   res.status(200).json(productEdit);
 };
 
-const deleteProductController = async (req, res) => {
+const deleteItem = async (req, res) => {
   const { id } = req.params;
 
   await middlewareProducts.deleteItem(Number(id));
@@ -58,9 +58,9 @@ const deleteProductController = async (req, res) => {
 };
 
 module.exports = {
-  getAllProductsController,
-  getProductByIdController,
-  newProductController,
-  editProductController,
-  deleteProductController,
+  getAll,
+  getById,
+  create,
+  edit,
+  deleteItem,
 };
