@@ -3,6 +3,10 @@ const servicesProducts = require('../services/products');
 const validateProductName = async (req, res, next) => {
   const { name } = req.body;
 
+  const filter = await servicesProducts.getByName(name);
+
+  if (filter.length >= 1) return res.status(409).json({ message: 'Product already exists' });
+
   if (!name) return res.status(400).json({ message: '"name" is required' });
 
   if (name.length < 5) {

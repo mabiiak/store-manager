@@ -21,10 +21,6 @@ const create = async (req, res) => {
 
   const allProducts = await servicesProducts.getAll();
 
-  const filter = await servicesProducts.getByName(name);
-
-  if (filter.length >= 1) return res.status(409).json({ message: 'Product already exists' });
-
   const newProduct = {
     id: allProducts.length,
     name,
