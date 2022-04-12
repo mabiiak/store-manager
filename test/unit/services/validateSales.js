@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const validate = require('../../../services/validateSales');
-const model = require('../../../models/salesModel');
+const model = require('../../../models/sales');
 const sales = require('../dubles/sales');
 
 describe('validate Sales', () => {

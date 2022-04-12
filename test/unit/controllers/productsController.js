@@ -4,8 +4,8 @@ const sinon = require('sinon');
 const connection = require('../../../models/connection');
 
 const products = require('../dubles/products');
-const controller = require('../../../controllers/productsController');
-const model = require('../../../models/productsModel');
+const controller = require('../../../controllers/products');
+const model = require('../../../models/products');
 
 describe('Products Controllers', () => {
   describe('getAllProductsController', () => {

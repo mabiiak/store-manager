@@ -2,12 +2,12 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../models/connection');
 
-const model = require('../../../models/salesModel');
+const model = require('../../../models/sales');
 const sales = require('../dubles/sales');
 const products = require('../dubles/products');
 
 describe('Model Sales', () => {
-  describe('getAllSalesModel', () => {
+  describe('1 - getAll', () => {
     before(() => {
       sinon.stub(connection, 'execute').resolves(sales.allSales);
     });
@@ -17,12 +17,12 @@ describe('Model Sales', () => {
     });
 
     it('A query retorna todas as vendas', async () => {
-      await model.getAllSalesModel();
+      await model.getAll();
       expect(connection.execute.calledOnce).to.be.true;
     });
   });
 
-  describe('getSaleByIdModel', () => {
+  describe('2 - getById', () => {
     before(() => {
       sinon.stub(connection, 'execute').resolves([products.saleSolo]);
     });
@@ -32,27 +32,27 @@ describe('Model Sales', () => {
     });
 
     it('A query retorna uma venda especifica', async () => {
-      await model.getSaleByIdModel(2);
+      await model.getById(2);
       expect(connection.execute.calledOnce).to.be.true;
     });
   });
 
-  // describe('newSalesModel', () => {
-  //   before(() => {
-  //     sinon.stub(connection, 'execute').resolves(sales.newSale);
-  //   });
+  describe(' 3 - create', () => {
+    before(() => {
+      sinon.stub(connection, 'execute').resolves(sales.newSale);
+    });
     
-  //   after(() => {
-  //     connection.execute.restore();
-  //   });
+    after(() => {
+      connection.execute.restore();
+    });
 
-  //   it('A query cria uma nova venda', async () => {
-  //     await model.newSalesModel(sales.newSale);
-  //     expect(connection.execute.calledOnce).to.be.true;
-  //   });
-  // });
+    it('A query cria uma nova venda', async () => {
+      await model.create(sales.newSale);
+      expect(connection.execute.calledOnce).to.be.true;
+    });
+  });
 
-  describe('deleteSalesModel', () => {
+  describe('4 - deleteItem', () => {
     before(() => {
       sinon.stub(connection, 'execute').resolves([products.id]);
     });
@@ -62,12 +62,12 @@ describe('Model Sales', () => {
     });
 
     it('A query deleta uma venda', async () => {
-      await model.deleteSalesModel(products.id);
+      await model.deleteItem(products.id);
       expect(connection.execute.calledOnce).to.be.true;
     });
   });
 
-  describe('findSales', () => {
+  describe('5 - find', () => {
     before(() => {
       sinon.stub(connection, 'execute').resolves([sales.idSales]);
     });
@@ -77,7 +77,7 @@ describe('Model Sales', () => {
     });
 
     it('A query checa se uma venda existe', async () => {
-      await model.findSales(sales.idSales);
+      await model.find(sales.idSales);
       expect(connection.execute.calledOnce).to.be.true;
     });
   });
