@@ -69,7 +69,7 @@ Atenção :warning: Não rode o comando npm audit fix! Ele atualiza várias depe
 - Adicione uma descrição para o _Pull Request_ e clique no botão verde _"Create pull request"_
 - Volte até a [página de _Pull Requests_ do repositório](https://github.com/mabiiak/store-manager/pulls) e confira que o seu _Pull Request_ está criado
 
-<details>
+</details>
 
 ## Lista de requisitos
 
