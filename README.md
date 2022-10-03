@@ -77,7 +77,6 @@ Atenção :warning: Não rode o comando npm audit fix! Ele atualiza várias depe
 
     ✅ 2 - Crie endpoints para listar os produtos e as vendas
 
-
     ✅ 3 - Crie middlewares de validação para as rotas `/products` e `/sales`
   
     ✅ 4 - Crie um endpoint para o cadastro de produtos
