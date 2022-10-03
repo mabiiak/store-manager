@@ -73,33 +73,33 @@ Atenção :warning: Não rode o comando npm audit fix! Ele atualiza várias depe
 
 ## Lista de requisitos
 
-### 1 - Escreva testes para cobrir 35% das camadas da sua aplicação
+    ✅ 1 - Escreva testes para cobrir 35% das camadas da sua aplicação
 
-### 2 - Crie endpoints para listar os produtos e as vendas
+    ✅ 2 - Crie endpoints para listar os produtos e as vendas
 
 
-### 3 - Crie middlewares de validação para as rotas `/products` e `/sales`
+    ✅ 3 - Crie middlewares de validação para as rotas `/products` e `/sales`
   
-### 4 - Crie um endpoint para o cadastro de produtos
+    ✅ 4 - Crie um endpoint para o cadastro de produtos
 
-### 5 - Crie um endpoint para atualizar um produto
+    ✅ 5 - Crie um endpoint para atualizar um produto
 
-### 6 - Crie um endpoint para deletar um produto
+    ✅ 6 - Crie um endpoint para deletar um produto
 
-### 7 - Crie um endpoint para cadastrar vendas
+    ✅ 7 - Crie um endpoint para cadastrar vendas
 
-### 8 - Crie um endpoint para atualizar uma venda
+    ✅ 8 - Crie um endpoint para atualizar uma venda
 
-### 9 - Escreva testes para cobrir 40% das camadas da sua aplicação
+    ✅ 9 - Escreva testes para cobrir 40% das camadas da sua aplicação
 
 ## Bônus
 
-### 10 - Crie um endpoint para deletar uma venda
+    ✅ 10 - Crie um endpoint para deletar uma venda
 
-### 11 - Atualize a quantidade de produtos
+    ❌ 11 - Atualize a quantidade de produtos
 
-### 12 - Valide a quantidade de produtos
+    ✅ 12 - Valide a quantidade de produtos
 
-### 13 - Escreva testes para cobrir 50% das camadas da sua aplicação
+    ✅ 13 - Escreva testes para cobrir 50% das camadas da sua aplicação
 
-### 14 - Escreva testes para cobrir 60% das camadas da sua aplicação
+    ✅ 14 - Escreva testes para cobrir 60% das camadas da sua aplicação
